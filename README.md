@@ -6,7 +6,7 @@ Maybe I will put it C#-like, but I think C# isn't enough useful.
 I'll add a "name pointer" witch can be EXTREAMLY HELPFUL FOR THE PROGRAMMER.
 And also "the" the keyword.
 It can be used like this:
-<
+
 for(numeric i = new numeric(2), i=+2, i<20)
 
 {
