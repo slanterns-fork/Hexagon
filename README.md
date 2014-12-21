@@ -181,3 +181,22 @@ Private Readonly Class ThisIsAPrivateClass extends MySuperClass
     ...
 ```
 ####3.3.1 成员变量
+
+变量声明如下:
+```
+类型 变量
+```
+一个变量可以被赋值。
+```
+int i
+i = 1
+```
+而这两个语句可以连写成
+```
+int i = 1
+```
+的形式。
+
+变量可以被当作shu
+```
+```
