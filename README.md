@@ -1,38 +1,53 @@
-#Hexagon
-Hexagon is a kind of new programming language.
-And, It's objective.
-It will contains all the cool function and struct.
-Maybe I will put it C#-like, but I think C# isn't enough useful.
-I'll add a "name pointer" witch can be EXTREAMLY HELPFUL FOR THE PROGRAMMER.
-And also "the" the keyword.
-It can be used like this:
+# Hexagon
+Hexagon是新一代面向对象的高级编程语言。
+它将具有漂亮的语法特性以及极其实用的新奇功能。
+## 语法
+它的语法和python有些类似，优雅的缩进控制结构使编写代码成为一种享受。
+### 表达式
+一个表达式看起来像这样:
 ```
-for(numeric i = new numeric(2), i=+2, i<20)
-
-{
-
-    Container.addControl(Control Ctrl<i> = new Control()); //<> means the pointer
-    
-}
-
-printline("Which control do you want to double size?");
-
-j = inputline();
-
-try{
-
-    j = Numeric.parseint(j)
-    
-}
-
-catch(NotANumException){
-
-    printline("It's not a integer. Please enter Number.")
-    
-}
->
-Container.Children.Ctrl<j>.height =+ the Control.height; //uses <> again
-
-                the Control.width =+ the Control.width;  //uses "the" with class to replace last declared object
+3 + 5
 ```
-OK. That's all. Let's go to work.
+或者这样
+```
+x + 1
+```
+以及
+```
+12 == 15                            //返回False
+"Hello," & " world" & "!"           //返回"Hello, world!"
+height * 2                          //返回变量height的两倍
+13                                  //返回13
+```
+都是表达式。
+单个的表达式并没有实际作用。
+### 语句
+一个语句能够产生一些效果，如:
+```
+print("Hello, world!")              //打印"Hello, world!"
+x = 13                              //把13赋给x
+x++                                 //等同于x = x + 1 , x自增
+finalize x                          //准备释放x的内存空间
+```
+**要注意，Hexagon的语句以换行结尾，不需要分号。**、
+### 结构
+结构可以产生代码片段的分段性。
+一个结构由结构头，结构体，以及可选的分支结构头构成。如:
+```
+Class MyFirstClass                              //结构头
+    Function myFirstFunction() returns string   //结构体    //又一个结构头
+        return "Hello, world! (Again)"          //结构体    //结构体
+    Function main(string[] args)                //结构体    //再来一个结构头
+        print(myFirstFunction)                  //结构体    //结构体
+```
+*结构体相对于结构头要使用一个制表符来表明。*
+有一些结构有分支结构头，如:
+```
+If i > 0        //结构头
+    i = i % m   //结构体
+Else            //分支结构头
+    return i    //结构体
+```
+无论使用什么结构，制表符是必需的。
+## 基础类型
+在前面我们使用到了int类型
