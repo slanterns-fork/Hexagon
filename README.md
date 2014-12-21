@@ -51,7 +51,7 @@ Else            //分支结构头
 无论使用什么结构，制表符是必需的。
 ## 基础类型
 在前面我们使用到了int类型，这是一个基础类型，代表Integer，意思是整数。
-|| *Year* || *Temperature (low)* || *Temperature (high)* ||
-|| 1900 || -10 || 25 ||
-|| 1910 || -15 || 30 ||
-|| 1920 || -10 || 32 ||
+First Header | Second Header | Third Header
+:----------- | :-----------: | -----------:
+Left         | Center        | Right
+Left         | Center        | Right
