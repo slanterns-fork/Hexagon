@@ -1,0 +1,5 @@
+void() Main = (){
+	import Hexagon::System::Console;
+	Console << "Hello, World!" << Hexagon::System::SpecialCharacters::EndLine;
+	Console.Command << "PAUSE";
+};

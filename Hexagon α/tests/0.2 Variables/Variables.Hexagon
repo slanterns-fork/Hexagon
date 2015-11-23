@@ -1,0 +1,44 @@
+using Hexagon::Lang::BasicTypes::*;
+using Hexagon::System::SpecialCharacters::*;
+using Hexagon::System::Booleans::*;
+
+void() Main = (){
+	
+	import Hexagon::System::Console;
+	
+	import Endline;
+	
+	import True,False;
+	
+	Integer a = 5;
+	Real a1 = 0.037;
+	Numeric b = 0..3, c = 0.5.285714;
+	Complex d = 1i2;
+	Fraction z = 35#97;
+	
+	String f = "testing";
+	
+	Character k = 250, i = 'i';
+	
+	Boolean x = True;
+	
+	Boolean x1 = 0;
+	
+	Boolean x2 = False;
+	
+	{
+		Object a;
+		Console << a1 + b << Endline;
+	};
+	
+	Console << a + a1 << Endline;
+	Console << a - a1 << Endline;
+	Console << a * a1 << Endline;
+	Console << a / a1 << Endline;
+	Console << a % a1 << Endline;
+	
+	f = f + " strings.";
+	
+	Console << f << Endline;
+	
+};

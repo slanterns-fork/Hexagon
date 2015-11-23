@@ -1,0 +1,27 @@
+using Hexagon::Lang::BasicTypes::*;
+
+class Rect = {
+	
+	@Shape;
+	
+	close Numeric a,b;
+	
+	[Override]
+	Numeric() Area = (){
+		return a * b;
+	};
+	
+};
+
+module Rect = {
+	
+	Rect(Numeric, Numeric) Rect = (a,b){
+		this.a = a;
+		this.b = b;
+	};
+	
+	Boolean(Rect, Rect) operator== =(a, b){
+		if( a.Area() == b.Area() , (){ return True; } , (){ return False; }
+	};
+	
+};
