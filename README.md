@@ -86,60 +86,46 @@ x1      \\合适的标识符
 以下关键字不可在标识符中出现:
 ```
 
-abstract
-base bol break byt
-case catch cha class continue
-dec default do
-else enum event extends
-false finally for foreach
-if in int interface is
-new null
-object opreator
-private protected public
-return returns
-static str switch
-this throw throws true try
-void
+abstract catch class
+finally null nopreator
+private protected public internal
+return throw try
 
 ```
-<!-- 仍需增加 !-->
 
 ###3.3 类
 类型的定义如下:
 ```
-[ 可见性标识符 ] [ 权限标识符 ] Class 标识符 [ extends 超类标识符 ] [ impents 接口1, 接口2, ... ]
-    类体
+[ 可见性标识符 ] class 标识符
+    [实现];
 ```
 如:
 ```
-Public Class MySecondClass
-    ...
+public class MySecondClass{
+    
+};
 ```
-或:
-```
-Private Readonly Class ThisIsAPrivateClass extends MySuperClass
-    ...
-```
+
 ####3.3.1 成员变量
 
 变量声明如下:
 ```
-[可见性标识符] [权限表识符] 类型 变量
+[可见性标识符] 类型 变量 [{单实例重载语句}] [= 初始值] ;
 ```
-一个变量可以被赋值。
+一个可见，set属性可用的变量可以被赋值。
 ```
-int i
-i = 1
+int i;
+i = 1;
 ```
 而这两个语句可以连写成
 ```
-int i = 1
+int i = 1;
 ```
 的形式。
 
 变量可以被当作值来使用:
 ```
-int i = 1
+int i = 1;
 print(i)
 print(i + i)
 ```
