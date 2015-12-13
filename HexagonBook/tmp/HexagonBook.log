@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015/W32TeX) (preloaded format=xelatex 2015.10.19)  15 NOV 2015 20:17
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015/W32TeX) (preloaded format=xelatex 2015.10.19)  4 DEC 2015 20:35
 entering extended mode
  restricted \write18 enabled.
  Source specials enabled.
@@ -1682,19 +1682,19 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\let' on input line 76.
+(hyperref)                removing `\let' on input line 81.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\CJK@q' on input line 76.
+(hyperref)                removing `\CJK@q' on input line 81.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\let' on input line 76.
+(hyperref)                removing `\let' on input line 81.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\let' on input line 76.
+(hyperref)                removing `\let' on input line 81.
 
 [19] [20] [21
 
@@ -1703,29 +1703,6 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 ] [23] [24
 
 ] [25] [26
-
-]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\let' on input line 83.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\CJK@q' on input line 83.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\let' on input line 83.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\let' on input line 83.
-
-[27] [28] [29
-
-] [30
-
-] [31] [32
 
 ]
 
@@ -1744,9 +1721,13 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\let' on input line 88.
 
-[33
+[27] [28] [29
 
-] [34] (./HexagonBook.ind) [35
+] [30
+
+] [31] [32
+
+] [33] [34] (./HexagonBook.ind) [35
 
 ]
 
@@ -1764,12 +1745,12 @@ Package minitoc(hints) Warning: W0024
 (minitoc(hints))                Some hints have been written 
 (minitoc(hints))                in the HexagonBook.log file.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 91.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 91.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 99.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 99.
 (./HexagonBook.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 91.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 91.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 91.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 99.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 99.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 99.
  ) 
 Here is how much of TeX's memory you used:
  28973 strings out of 494817
