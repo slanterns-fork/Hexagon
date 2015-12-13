@@ -40,10 +40,11 @@
 Hexagon~是一门全新的编程语言。它具有全新的完美类库分离语法、完全函数编程支持、强面向集合性等诸多令人喜爱的特性以及一些经过改善的语法。一睹为快吧。
 \section{Hello, world!}
 	\begin{verbatim}
-		void() main = (){
-		    import Hexagon::System::Console;
-		    Console << “Hello, world!”;
-		};
+	void() Main = (){
+		var c = import Hexagon::System::Console;
+		c << "Hello, World!" << Hexagon::System::SpecChar::EndLine;
+		c.Command << "PAUSE";
+	};
 	\end{verbatim}
 	产生输出：
 	\begin{verbatim}
