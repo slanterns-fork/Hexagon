@@ -1,0 +1,7 @@
+/*
+ * 这是Hexagon语法分析文件，它是一个bison文件。
+ * <Hexadecimal 15/12/13>
+ */
+
+%token LP
+%token RP
