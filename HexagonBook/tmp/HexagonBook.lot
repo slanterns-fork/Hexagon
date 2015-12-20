@@ -1,25 +1,23 @@
 \addvspace {10\p@ }
 \contentsline {xchapter}{概览}{3}{chapter*.1}
-\contentsline {xpart}{入门篇}{13}{part.1}
 \addvspace {10\p@ }
-\contentsline {xchapter}{表达式与语句}{13}{chapter*.6}
+\contentsline {xchapter}{引入\nobreakspace {}Hexagon\nobreakspace {}: 学校成绩数据库}{13}{chapter.1}
 \addvspace {10\p@ }
-\contentsline {xchapter}{函数}{15}{chapter*.9}
+\contentsline {xchapter}{表达式与语句}{15}{chapter.2}
 \addvspace {10\p@ }
-\contentsline {xchapter}{面向对象}{17}{chapter*.10}
-\contentsline {xpart}{进阶篇}{21}{part.2}
+\contentsline {xchapter}{函数}{17}{chapter.3}
 \addvspace {10\p@ }
-\contentsline {xchapter}{泛型}{21}{chapter*.11}
+\contentsline {xchapter}{面向对象}{19}{chapter.4}
 \addvspace {10\p@ }
-\contentsline {xchapter}{面向集合}{23}{chapter*.12}
+\contentsline {xchapter}{泛型}{23}{chapter.5}
 \addvspace {10\p@ }
-\contentsline {xchapter}{数据结构}{25}{chapter*.13}
-\contentsline {xpart}{提高篇}{29}{part.3}
+\contentsline {xchapter}{面向集合}{25}{chapter.6}
 \addvspace {10\p@ }
-\contentsline {xchapter}{算法}{29}{chapter*.14}
+\contentsline {xchapter}{数据结构}{27}{chapter.7}
 \addvspace {10\p@ }
-\contentsline {xchapter}{自订模块}{31}{chapter*.15}
-\contentsline {xpart}{附录}{35}{part.4}
+\contentsline {xchapter}{算法}{31}{chapter.8}
 \addvspace {10\p@ }
-\contentsline {xchapter}{索引}{35}{chapter*.16}
+\contentsline {xchapter}{自订模块}{33}{chapter.9}
+\addvspace {10\p@ }
+\contentsline {xchapter}{索引}{37}{chapter.1}
 \contentsfinish 

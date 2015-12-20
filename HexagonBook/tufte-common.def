@@ -12,6 +12,8 @@
 % We use the `xifthen' package to handle our package option switches
 \RequirePackage{xifthen}
 
+\RequirePackage{listings}
+
 %%
 % Define some shortcut macros for error/warning/info logging.
 \RequirePackage{hardwrap}
@@ -494,7 +496,7 @@
 %%
 % Turn off section numbering
 
-\setcounter{secnumdepth}{-1}
+\setcounter{secnumdepth}{5}
 
 %%
 % Tighten up space between displays (e.g., a figure or table) and make symmetric
@@ -1249,6 +1251,9 @@
     \renewcommand{\caption}{\optparams{\@tufte@caption}{[][0pt]}}%
     \renewcommand{\label}[1]{\@tufte@label{##1}}%
     % Handle subfigure package compatibility
+    \makeatletter
+	\setboolean{@tufte@packages@subfigure}{true}
+	\makeatother
     \ifthenelse{\boolean{@tufte@packages@subfigure}}{%
       % don't move the label while inside a \subfigure or \subtable command
       \global\let\label\@tufte@orig@label%
@@ -1353,6 +1358,7 @@
 \renewenvironment{table}[1][htbp]
   {\ifvmode\else\unskip\fi\begin{@tufte@float}[#1]{table}{}}
   {\end{@tufte@float}}
+
 
 
 %%
@@ -1611,13 +1617,23 @@
 
 %%
 % Make Tuftian-style section headings and TOC formatting
+\renewcommand{\thepart}{第\CJKnumber{\arabic{part}}部分}
+\titleformat{\part}
+  [display]% shape
+  {\thispagestyle{empty}\begin{figure*}\begin{center}\bfseries\fontsize{72pt}{\baselineskip}\selectfont}
+  {\thepart}
+  {30pt}
+  {\mdseries\fontsize{72pt}{\baselineskip}\selectfont}
+  [\end{center}\end{figure*}]
+
 
 \titleformat{\chapter}%
   [display]% shape
-  {\relax\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\begin{fullwidth}}{}}% format applied to label+text
-  {\itshape\huge\thechapter}% label
+  {\thispagestyle{empty}\relax\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\begin{fullwidth}}{}\bfseries\fontsize{72pt}{\baselineskip}\selectfont}%
+  % format applied to label+text
+  {第~\thechapter~章 \\}% label
   {0pt}% horizontal separation between label and title body
-  {\huge\rmfamily\itshape}% before the title body
+  {\bfseries\fontsize{48pt}{\baselineskip}\selectfont}% before the title body
   [\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\end{fullwidth}}{}]% after the title body
 
 \titleformat{\section}%
@@ -1732,6 +1748,8 @@
 %  \end{fullwidth}%
 }
 
+
+
 \newcommand{\@tufte@lof@line}[2]{%
   % #1 is the figure/table number and its caption text
   % #2 is the page number on which the figure/table appears
@@ -1751,6 +1769,7 @@
 
 \renewcommand*\l@figure{\@tufte@lof@line}
 \let\l@table\l@figure
+\let\l@lstlisting\l@figure
 
 
 %%
@@ -2011,16 +2030,6 @@
 \ifthenelse{\boolean{@tufte@debug}}
   {\PrintTufteSettings\listfiles}
   {}
-
-
-%%
-% If there is a `tufte-common-local.tex' file, load it up.
-
-\IfFileExists{tufte-common-local.tex}
-  {\input{tufte-common-local.tex}%
-   \@tufte@info@noline{Loading tufte-common-local.tex}}
-  {}
-
 
 %%
 % End of file
