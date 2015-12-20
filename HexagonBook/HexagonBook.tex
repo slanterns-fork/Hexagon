@@ -39,13 +39,20 @@
 \chapter{概览}
 Hexagon~是一门全新的编程语言。它具有全新的完美类库分离语法、完全函数编程支持、强面向集合性等诸多令人喜爱的特性以及一些经过改善的语法。一睹为快吧。
 \section{Hello, world!}
-	\begin{verbatim}
-	void() Main = (){
-		var c = import Hexagon::System::Console;
-		c << "Hello, World!" << Hexagon::System::SpecChar::EndLine;
-		c.Command << "PAUSE";
-	};
+%\usepackage{graphics} is needed for \includegraphics
+\begin{figure}[htp]
+\begin{center}
+  	\begin{verbatim}
+		void() Main = (){
+		    var c = import Hexagon::System::Console;
+		    c << "Hello, World!" << Hexagon::System::SpecChar::EndLine;
+		    c.Command << "PAUSE";
+		};
 	\end{verbatim}
+  \caption{Hello, World!}
+  \label{Hello,World}
+\end{center}
+\end{figure}
 	产生输出：
 	\begin{verbatim}
 		Hello, world!
