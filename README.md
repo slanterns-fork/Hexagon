@@ -87,7 +87,7 @@ x1      \\合适的标识符
 ```
 
 abstract catch class
-finally null nopreator
+finally null opreator
 private protected public internal
 return throw try
 
