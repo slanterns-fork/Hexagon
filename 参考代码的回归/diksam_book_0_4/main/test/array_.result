@@ -1,10 +1,1 @@
-size..3
-{1, 2, 3, 0, 0, 0, 0, 0, 0, 0}
-{1, 2}
-{3, 1, 2}
-{3, 1, 2, -5}
-len..6
-substr..e�ق���
-{3, 1, 2, -5, 42}
-double_size..3
-{1.000000, 2.000000, 3.000000}
+E:\Hexagon\参考代码的回归\diksam_book_0_4\main\test\test.sh: line 2: ../diksam: No such file or directory

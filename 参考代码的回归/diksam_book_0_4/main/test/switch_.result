@@ -1,16 +1,1 @@
-i..0:default
-i..1:case 1
-i..2:case 2, 3
-i..3:case 2, 3
-i..4:default
-i..5:case 5
-i..6:default
-i..7:default
-i..0:default
-i..1:case 1
-i..2:case 2, 3
-i..3:case 2, 3
-i..4:default
-i..5:case 5
-i..6:default
-i..7:default
+E:\Hexagon\参考代码的回归\diksam_book_0_4\main\test\test.sh: line 19: ../diksam: No such file or directory
