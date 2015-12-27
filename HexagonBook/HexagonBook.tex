@@ -10,6 +10,8 @@
 \usepackage{listings}
 \usepackage{caption}
 \usepackage{tikz}
+\usepackage{longtable,booktabs}
+\usepackage{tabularx}
 \renewcommand{\partname}{}
 
 
@@ -32,6 +34,8 @@
     \bfseries\footnotesize #1: #2\par
   \vskip\belowcaptionskip}
 \makeatother
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
 
 \begin{document}
 
@@ -138,12 +142,53 @@ Console >> i; 	//这是输入的方式
 				\footnote{Hexagon中没有任何获取上下文语句的情况，所有的控制流都是直接传入函数对象，这一点与C/C++等语言不大相同。}。
 			
 		\section{基本运算}
-			我们提供几个十分基础的\indexed{算术类型}，基本情况如下表所示。
-		\begin{tabular}{|c||c|c|c|}
-			\hline
-			1 & 2 & 3 & 4 \\
-			1 & 2 & 3 & 4
-		\end{tabular}
+			我们提供几个十分基础的\indexed{算术类型}，它们代表一些数学意义上的实数、整数等基本情况如\ref{ls:1}所示。
+			\footnotetext[2]{有关于其他进制表示我们将在以后讨论，本表一律采用十进制。}
+			\footnotetext[3]{它只表示一个近似的示数。}
+			\footnotetext[4]{此处表示的是，
+						本类型可选一个循环节部分，写作“整数部分.小数部分.循环节”。}
+			\begin{table}
+			\caption{基础算术类型一览}
+			\label{ls:1}
+			\centering
+			\begin{tabularx}{4in}{ccXXX}
+				
+					\toprule
+						类型名 &
+						中文名 &
+						说明 &
+						示例 &
+						一般形式 \\
+					\midrule
+					
+						Interger &
+						整数型 &
+						表示一个任意尺寸的整数。 &
+						10, 35, 81263845618 &
+						(1至9) 后接 ((0至9)重复0或多次)\footnotemark[2]
+						\\
+					\midrule
+						
+						Number &
+						实数型\footnotemark[3] &
+						表示一个任意尺寸的自然数。 &
+						1.0, 3.14,
+						1.9773.827\footnotemark[4] &
+						(整数型) 后接 ((.(整数型))重复0至2次) \\
+					\midrule
+						
+						Complex &
+						复数型 & 
+						表示一个由两个实数型构成的复数。 &
+						i, 3.5i, 2i+1 &
+						(实数型 i) 后接 (可选的(+ 实数型) \\
+						
+					\bottomrule
+			\end{tabularx}
+			\end{table}
+			
+			这些类型提供四则运算、乘开方、求对数等基本的数字功能，我们将在各种程序中直接使用它们。
+			
 	\chapter{表达式与语句}
 		在本章里我们将研究两个极为重要的概念：
 		能够描述一段运算的\indexed{表达式}和一个动作的\indexed{语句}。
