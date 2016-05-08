@@ -1,0 +1,4 @@
+all:
+	flex Hexagon.ll
+	yacc Hexagon.yy
+	gcc Hexagon.cc
