@@ -1,7 +1,0 @@
-using Hexagon::Lang::BasicTypes::*;
-
-abstract class Shape = {
-	
-	open abstract Numeric() Area;
-	
-};
