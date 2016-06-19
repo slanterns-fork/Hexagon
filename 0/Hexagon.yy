@@ -3,16 +3,15 @@
 %}
 
 %token  SEMICOLON COMMA DOT ARROW GREATER LESS ASSIGN LP RP LS RS LC RC
-        NULLEXP IMPORT CLASS MODULE NAMESPACE CONSTRUCT VAR CONST
-
-
+        NULLEXP IMPORT CLASS MODULE NAMESPACE CONSTRUCT VAR CONST TRUEEXP FALSEEXP IDENTIFIER INTEGER REAL STRING
 
 %%
 
 Expression
     : %empty
     | INTEGER
-    | BOOLEAN
+    | TRUEEXP
+    | FALSEEXP
     | STRING
     | REAL
     | NULLEXP
@@ -29,13 +28,13 @@ Expression
     | Expression DOT Identifier
     ;
 
-DeclearArea
+DeclareArea
     : %empty
     | DeclareArea Declaration SEMICOLON
     ;
 
 Declaration
-    : CLASS Packct Identifier ASSIGN ClassBody
+    : CLASS Packet Identifier ASSIGN ClassBody
     | MODULE Packet Identifier ASSIGN ClassBody
     | NAMESPACE Identifier ASSIGN NamespaceBody
     | VariableDeclare
@@ -105,7 +104,10 @@ Dictionary
 DictionaryItems
     : DictionaryItem
     | DictionaryItems COMMA DictionaryItem DictionaryItem
-    | Identifier ARROW Identifier
+    ;
+
+DictionaryItem
+    : Identifier ARROW Identifier
     ;
 
 NamespaceBody
@@ -113,8 +115,11 @@ NamespaceBody
     ;
 
 ClassBody
-    : Packet LC MembersDeclareArea RC MembersDeclareArea
-    | %empty
+    : Packet LC MembersDeclareArea RC
+    ;
+
+MembersDeclareArea
+    : %empty
     | MemberItems
     ;
 
