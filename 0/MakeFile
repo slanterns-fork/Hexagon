@@ -1,0 +1,4 @@
+all:
+	flex Hexagon.ll
+	yacc Hexagon.yy
+	g++ -std=c++11 -o Hexagon.exe Hexagon.cc
