@@ -1,8 +1,16 @@
 %{
 #include "Hexagon.hh"
+class HexagonParser;
 %}
 
-%token  SEMICOLON COMMA DOT ARROW GREATER LESS ASSIGN LP RP LS RS LC RC
+%skeleton "lalr1.cc" /* -*- C++ -*- */
+%defines
+%define parser_class_name {HexagonParser}
+%define api.token.constructor
+%define api.value.type variant
+%define parse.assert
+
+%token  SEMICOLON COMMA DOT ARROW GREATER LESS ASSIGN LB RB LS RS LC RC
         NULLEXP IMPORT CLASS MODULE NAMESPACE CONSTRUCT VAR CONST TRUEEXP FALSEEXP IDENTIFIER INTEGER REAL STRING
 
 %%
@@ -17,7 +25,7 @@ Expression
     | NULLEXP
     | Array
     | Dictionary
-    | Expression LP ParameterList RP
+    | Expression LB ParameterList RB
     | Expression LS Expression RS
     | IMPORT Identifier
     | CONSTRUCT
@@ -26,24 +34,25 @@ Expression
     | VariableDeclare
     | Expression SEMICOLON Expression
     | Expression DOT Identifier
+    | Declaration
     ;
 
 DeclareArea
     : %empty
-    | DeclareArea Declaration SEMICOLON
+    | DeclareArea Declaration
     ;
 
 Declaration
-    : CLASS Packet Identifier ASSIGN ClassBody
-    | MODULE Packet Identifier ASSIGN ClassBody
-    | NAMESPACE Identifier ASSIGN NamespaceBody
+    : CLASS Packet Identifier ASSIGN ClassBody SEMICOLON
+    | MODULE Packet Identifier ASSIGN ClassBody SEMICOLON
+    | NAMESPACE Identifier ASSIGN NamespaceBody SEMICOLON
     | VariableDeclare
     ;
 
 VariableDeclare
-    : Identifier Identifier
-    | CONST Identifier ASSIGN Expression
-    | VAR Identifier ASSIGN Expression
+    : Identifier Identifier SEMICOLON
+    | CONST Identifier ASSIGN Expression SEMICOLON
+    | VAR Identifier ASSIGN Expression SEMICOLON
     ;
 
 Identifier
@@ -52,8 +61,7 @@ Identifier
     ;
 
 Packet
-    : %empty
-    | LESS PacketList GREATER
+    : LESS PacketList GREATER
     ;
 
 PacketList
@@ -71,7 +79,7 @@ Function
     ;
 
 FunctionHead
-    : LP ParameterList RP
+    : LB ParameterList RB
     ;
 
 ParameterList

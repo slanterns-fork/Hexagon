@@ -1,0 +1,8 @@
+cmd: make all
+name: Build
+errorMatch:
+    - (?<file>[/0-9a-zA-Z\._]+):(?<line>\d+):(?<col>\d+):\s+error:\s*(?<message>.+)
+    - (?<file>[/0-9a-zA-Z\._]+):(?<line>\d+)\.(?<col>\d+)-(?<col_end>\d+):\s*error:\s*(?<message>.+)
+warningMatch:
+    - (?<file>[/0-9a-zA-Z\._]+):(?<line>\d+):(?<col>\d+):\s*warning:\s*(?<message>.+)
+    - (?<file>[/0-9a-zA-Z\._]+):(?<line>\d+)\.(?<col>\d+)-(?<col_end>\d+):\s*warning:\s*(?<message>.+)
