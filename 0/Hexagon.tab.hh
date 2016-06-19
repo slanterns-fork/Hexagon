@@ -39,6 +39,14 @@
 
 #ifndef YY_YY_HEXAGON_TAB_HH_INCLUDED
 # define YY_YY_HEXAGON_TAB_HH_INCLUDED
+// //                    "%code requires" blocks.
+#line 12 "Hexagon.yy" // lalr1.cc:377
+
+    #include <string>
+    class HexagonParser;
+    class HexagonInterpreter;
+
+#line 50 "Hexagon.tab.hh" // lalr1.cc:377
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -47,7 +55,7 @@
 # include <string>
 # include <vector>
 # include "stack.hh"
-
+# include "location.hh"
 #include <typeinfo>
 #ifndef YYASSERT
 # include <cassert>
@@ -115,7 +123,7 @@
 
 
 namespace yy {
-#line 119 "Hexagon.tab.hh" // lalr1.cc:377
+#line 127 "Hexagon.tab.hh" // lalr1.cc:377
 
 
 
@@ -288,11 +296,14 @@ namespace yy {
 #else
     typedef YYSTYPE semantic_type;
 #endif
+    /// Symbol locations.
+    typedef location location_type;
 
     /// Syntax errors thrown from user actions.
     struct syntax_error : std::runtime_error
     {
-      syntax_error (const std::string& m);
+      syntax_error (const location_type& l, const std::string& m);
+      location_type location;
     };
 
     /// Tokens.
@@ -347,7 +358,7 @@ namespace yy {
     /// Expects its Base type to provide access to the symbol type
     /// via type_get().
     ///
-    /// Provide access to semantic value.
+    /// Provide access to semantic value and location.
     template <typename Base>
     struct basic_symbol : Base
     {
@@ -362,12 +373,13 @@ namespace yy {
 
       /// Constructor for valueless symbols, and symbols from each type.
 
-  basic_symbol (typename Base::kind_type t);
+  basic_symbol (typename Base::kind_type t, const location_type& l);
 
 
       /// Constructor for symbols with semantic value.
       basic_symbol (typename Base::kind_type t,
-                    const semantic_type& v);
+                    const semantic_type& v,
+                    const location_type& l);
 
       /// Destroy the symbol.
       ~basic_symbol ();
@@ -383,6 +395,9 @@ namespace yy {
 
       /// The semantic value.
       semantic_type value;
+
+      /// The location.
+      location_type location;
 
     private:
       /// Assignment operator.
@@ -429,115 +444,115 @@ namespace yy {
     // Symbol constructors declarations.
     static inline
     symbol_type
-    make_SEMICOLON ();
+    make_SEMICOLON (const location_type& l);
 
     static inline
     symbol_type
-    make_COMMA ();
+    make_COMMA (const location_type& l);
 
     static inline
     symbol_type
-    make_DOT ();
+    make_DOT (const location_type& l);
 
     static inline
     symbol_type
-    make_ARROW ();
+    make_ARROW (const location_type& l);
 
     static inline
     symbol_type
-    make_GREATER ();
+    make_GREATER (const location_type& l);
 
     static inline
     symbol_type
-    make_LESS ();
+    make_LESS (const location_type& l);
 
     static inline
     symbol_type
-    make_ASSIGN ();
+    make_ASSIGN (const location_type& l);
 
     static inline
     symbol_type
-    make_LB ();
+    make_LB (const location_type& l);
 
     static inline
     symbol_type
-    make_RB ();
+    make_RB (const location_type& l);
 
     static inline
     symbol_type
-    make_LS ();
+    make_LS (const location_type& l);
 
     static inline
     symbol_type
-    make_RS ();
+    make_RS (const location_type& l);
 
     static inline
     symbol_type
-    make_LC ();
+    make_LC (const location_type& l);
 
     static inline
     symbol_type
-    make_RC ();
+    make_RC (const location_type& l);
 
     static inline
     symbol_type
-    make_NULLEXP ();
+    make_NULLEXP (const location_type& l);
 
     static inline
     symbol_type
-    make_IMPORT ();
+    make_IMPORT (const location_type& l);
 
     static inline
     symbol_type
-    make_CLASS ();
+    make_CLASS (const location_type& l);
 
     static inline
     symbol_type
-    make_MODULE ();
+    make_MODULE (const location_type& l);
 
     static inline
     symbol_type
-    make_NAMESPACE ();
+    make_NAMESPACE (const location_type& l);
 
     static inline
     symbol_type
-    make_CONSTRUCT ();
+    make_CONSTRUCT (const location_type& l);
 
     static inline
     symbol_type
-    make_VAR ();
+    make_VAR (const location_type& l);
 
     static inline
     symbol_type
-    make_CONST ();
+    make_CONST (const location_type& l);
 
     static inline
     symbol_type
-    make_TRUEEXP ();
+    make_TRUEEXP (const location_type& l);
 
     static inline
     symbol_type
-    make_FALSEEXP ();
+    make_FALSEEXP (const location_type& l);
 
     static inline
     symbol_type
-    make_IDENTIFIER ();
+    make_IDENTIFIER (const location_type& l);
 
     static inline
     symbol_type
-    make_INTEGER ();
+    make_INTEGER (const location_type& l);
 
     static inline
     symbol_type
-    make_REAL ();
+    make_REAL (const location_type& l);
 
     static inline
     symbol_type
-    make_STRING ();
+    make_STRING (const location_type& l);
 
 
     /// Build a parser object.
-    HexagonParser ();
+    HexagonParser (HexagonInterpreter& interpreter_yyarg);
     virtual ~HexagonParser ();
 
     /// Parse.
@@ -559,8 +574,9 @@ namespace yy {
 #endif
 
     /// Report a syntax error.
+    /// \param loc    where the syntax error is found.
     /// \param msg    a description of the syntax error.
-    virtual void error (const std::string& msg);
+    virtual void error (const location_type& loc, const std::string& msg);
 
     /// Report a syntax error.
     void error (const syntax_error& err);
@@ -745,6 +761,8 @@ namespace yy {
     };
 
 
+    // User arguments.
+    HexagonInterpreter& interpreter;
   };
 
   // Symbol number corresponding to token number t.
@@ -798,8 +816,9 @@ namespace yy {
   }
 
   inline
-  HexagonParser::syntax_error::syntax_error (const std::string& m)
+  HexagonParser::syntax_error::syntax_error (const location_type& l, const std::string& m)
     : std::runtime_error (m)
+    , location (l)
   {}
 
   // basic_symbol.
@@ -814,6 +833,7 @@ namespace yy {
   HexagonParser::basic_symbol<Base>::basic_symbol (const basic_symbol& other)
     : Base (other)
     , value ()
+    , location (other.location)
   {
       switch (other.type_get ())
     {
@@ -826,9 +846,10 @@ namespace yy {
 
   template <typename Base>
   inline
-  HexagonParser::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, const semantic_type& v)
+  HexagonParser::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, const semantic_type& v, const location_type& l)
     : Base (t)
     , value ()
+    , location (l)
   {
     (void) v;
       switch (this->type_get ())
@@ -842,9 +863,10 @@ namespace yy {
   // Implementation of basic_symbol constructor for each type.
 
   template <typename Base>
-  HexagonParser::basic_symbol<Base>::basic_symbol (typename Base::kind_type t)
+  HexagonParser::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, const location_type& l)
     : Base (t)
     , value ()
+    , location (l)
   {}
 
 
@@ -900,6 +922,7 @@ namespace yy {
         break;
     }
 
+    location = s.location;
   }
 
   // by_type.
@@ -958,171 +981,171 @@ namespace yy {
   }
   // Implementation of make_symbol for each symbol type.
   HexagonParser::symbol_type
-  HexagonParser::make_SEMICOLON ()
+  HexagonParser::make_SEMICOLON (const location_type& l)
   {
-    return symbol_type (token::SEMICOLON);
+    return symbol_type (token::SEMICOLON, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_COMMA ()
+  HexagonParser::make_COMMA (const location_type& l)
   {
-    return symbol_type (token::COMMA);
+    return symbol_type (token::COMMA, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_DOT ()
+  HexagonParser::make_DOT (const location_type& l)
   {
-    return symbol_type (token::DOT);
+    return symbol_type (token::DOT, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_ARROW ()
+  HexagonParser::make_ARROW (const location_type& l)
   {
-    return symbol_type (token::ARROW);
+    return symbol_type (token::ARROW, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_GREATER ()
+  HexagonParser::make_GREATER (const location_type& l)
   {
-    return symbol_type (token::GREATER);
+    return symbol_type (token::GREATER, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_LESS ()
+  HexagonParser::make_LESS (const location_type& l)
   {
-    return symbol_type (token::LESS);
+    return symbol_type (token::LESS, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_ASSIGN ()
+  HexagonParser::make_ASSIGN (const location_type& l)
   {
-    return symbol_type (token::ASSIGN);
+    return symbol_type (token::ASSIGN, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_LB ()
+  HexagonParser::make_LB (const location_type& l)
   {
-    return symbol_type (token::LB);
+    return symbol_type (token::LB, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_RB ()
+  HexagonParser::make_RB (const location_type& l)
   {
-    return symbol_type (token::RB);
+    return symbol_type (token::RB, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_LS ()
+  HexagonParser::make_LS (const location_type& l)
   {
-    return symbol_type (token::LS);
+    return symbol_type (token::LS, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_RS ()
+  HexagonParser::make_RS (const location_type& l)
   {
-    return symbol_type (token::RS);
+    return symbol_type (token::RS, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_LC ()
+  HexagonParser::make_LC (const location_type& l)
   {
-    return symbol_type (token::LC);
+    return symbol_type (token::LC, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_RC ()
+  HexagonParser::make_RC (const location_type& l)
   {
-    return symbol_type (token::RC);
+    return symbol_type (token::RC, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_NULLEXP ()
+  HexagonParser::make_NULLEXP (const location_type& l)
   {
-    return symbol_type (token::NULLEXP);
+    return symbol_type (token::NULLEXP, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_IMPORT ()
+  HexagonParser::make_IMPORT (const location_type& l)
   {
-    return symbol_type (token::IMPORT);
+    return symbol_type (token::IMPORT, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_CLASS ()
+  HexagonParser::make_CLASS (const location_type& l)
   {
-    return symbol_type (token::CLASS);
+    return symbol_type (token::CLASS, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_MODULE ()
+  HexagonParser::make_MODULE (const location_type& l)
   {
-    return symbol_type (token::MODULE);
+    return symbol_type (token::MODULE, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_NAMESPACE ()
+  HexagonParser::make_NAMESPACE (const location_type& l)
   {
-    return symbol_type (token::NAMESPACE);
+    return symbol_type (token::NAMESPACE, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_CONSTRUCT ()
+  HexagonParser::make_CONSTRUCT (const location_type& l)
   {
-    return symbol_type (token::CONSTRUCT);
+    return symbol_type (token::CONSTRUCT, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_VAR ()
+  HexagonParser::make_VAR (const location_type& l)
   {
-    return symbol_type (token::VAR);
+    return symbol_type (token::VAR, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_CONST ()
+  HexagonParser::make_CONST (const location_type& l)
   {
-    return symbol_type (token::CONST);
+    return symbol_type (token::CONST, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_TRUEEXP ()
+  HexagonParser::make_TRUEEXP (const location_type& l)
   {
-    return symbol_type (token::TRUEEXP);
+    return symbol_type (token::TRUEEXP, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_FALSEEXP ()
+  HexagonParser::make_FALSEEXP (const location_type& l)
   {
-    return symbol_type (token::FALSEEXP);
+    return symbol_type (token::FALSEEXP, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_IDENTIFIER ()
+  HexagonParser::make_IDENTIFIER (const location_type& l)
   {
-    return symbol_type (token::IDENTIFIER);
+    return symbol_type (token::IDENTIFIER, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_INTEGER ()
+  HexagonParser::make_INTEGER (const location_type& l)
   {
-    return symbol_type (token::INTEGER);
+    return symbol_type (token::INTEGER, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_REAL ()
+  HexagonParser::make_REAL (const location_type& l)
   {
-    return symbol_type (token::REAL);
+    return symbol_type (token::REAL, l);
   }
 
   HexagonParser::symbol_type
-  HexagonParser::make_STRING ()
+  HexagonParser::make_STRING (const location_type& l)
   {
-    return symbol_type (token::STRING);
+    return symbol_type (token::STRING, l);
   }
 
 
 
 } // yy
-#line 1126 "Hexagon.tab.hh" // lalr1.cc:377
+#line 1149 "Hexagon.tab.hh" // lalr1.cc:377
 
 
 

@@ -6,43 +6,43 @@
     int line = 1;
 %}
 
-%option c++
+%option c++ noyywrap
 
 %start STR LINECOMMENT BLOCKCOMMENT
 
 %%
-<INITIAL>";"            return SEMICOLON;
-<INITIAL>","            return COMMA;
-<INITIAL>"."            return DOT;
-<INITIAL>"->"           return ARROW;
-<INITIAL>">"            return GREATER;
-<INITIAL>"<"            return LESS;
-<INITIAL>"="            return ASSIGN;
-<INITIAL>"("            return LB;
-<INITIAL>")"            return RB;
-<INITIAL>"["            return LS;
-<INITIAL>"]"            return RS;
-<INITIAL>"{"            return LC;
-<INITIAL>"}"            return RC;
-<INITIAL>"null"         return NULLEXP;
-<INITIAL>"import"       return IMPORT;
-<INITIAL>"class"        return CLASS;
-<INITIAL>"module"       return MODULE;
-<INITIAL>"namespace"    return NAMESPACE;
-<INITIAL>"construct"    return CONSTRUCT;
-<INITIAL>"var"          return VAR;
-<INITIAL>"const"        return CONST;
-<INITIAL>"true"         return TRUEEXP;
-<INITIAL>"false"        return FALSEEXP;
+<INITIAL>";"            return yy::HexagonParser::token::yytokentype::SEMICOLON;
+<INITIAL>","            return yy::HexagonParser::token::yytokentype::COMMA;
+<INITIAL>"."            return yy::HexagonParser::token::yytokentype::DOT;
+<INITIAL>"->"           return yy::HexagonParser::token::yytokentype::ARROW;
+<INITIAL>">"            return yy::HexagonParser::token::yytokentype::GREATER;
+<INITIAL>"<"            return yy::HexagonParser::token::yytokentype::LESS;
+<INITIAL>"="            return yy::HexagonParser::token::yytokentype::ASSIGN;
+<INITIAL>"("            return yy::HexagonParser::token::yytokentype::LB;
+<INITIAL>")"            return yy::HexagonParser::token::yytokentype::RB;
+<INITIAL>"["            return yy::HexagonParser::token::yytokentype::LS;
+<INITIAL>"]"            return yy::HexagonParser::token::yytokentype::RS;
+<INITIAL>"{"            return yy::HexagonParser::token::yytokentype::LC;
+<INITIAL>"}"            return yy::HexagonParser::token::yytokentype::RC;
+<INITIAL>"null"         return yy::HexagonParser::token::yytokentype::NULLEXP;
+<INITIAL>"import"       return yy::HexagonParser::token::yytokentype::IMPORT;
+<INITIAL>"class"        return yy::HexagonParser::token::yytokentype::CLASS;
+<INITIAL>"module"       return yy::HexagonParser::token::yytokentype::MODULE;
+<INITIAL>"namespace"    return yy::HexagonParser::token::yytokentype::NAMESPACE;
+<INITIAL>"construct"    return yy::HexagonParser::token::yytokentype::CONSTRUCT;
+<INITIAL>"var"          return yy::HexagonParser::token::yytokentype::VAR;
+<INITIAL>"const"        return yy::HexagonParser::token::yytokentype::CONST;
+<INITIAL>"true"         return yy::HexagonParser::token::yytokentype::TRUEEXP;
+<INITIAL>"false"        return yy::HexagonParser::token::yytokentype::FALSEEXP;
 <INITIAL>"\""           BEGIN STR;
 <INITIAL>"//"           BEGIN LINECOMMENT;
 <INITIAL>"/*"           BEGIN BLOCKCOMMENT;
-<INITIAL>"\n"           line++;
-<INITIAL>\s             ;
-<INITIAL>.              cout << "Bad Input:\"" << yytext[0] << "\"" << endl;
+<INITIAL>[ \t]          ;
+<INITIAL>(\r\n)|(\n\r)|\r|\n      {line++;}
+<INITIAL>.              std::cout << "Bad Input:\"" << yytext[0] << "\"" << std::endl;
 
-<INITIAL>[A-Za-z_][A-Za-z0-9_]*                          return IDENTIFIER;
-<INITIAL>(\+|-)?[1-9][0-9]*|0                            return INTEGER;
-<INITIAL>(\+|-)?([1-9][0-9]*|0)?\.([0-9]*)(\.[0-9]*)?    return REAL;
+<INITIAL>[A-Za-z_][A-Za-z0-9_]*                 return yy::HexagonParser::token::yytokentype::IDENTIFIER;
+<INITIAL>(\+|-)?[1-9][0-9]*|0                   return yy::HexagonParser::token::yytokentype::INTEGER;
+<INITIAL>(\+|-)?([1-9][0-9]*|0)?(\.[0-9]*){1,2} return yy::HexagonParser::token::yytokentype::REAL;
 
 <STR>.

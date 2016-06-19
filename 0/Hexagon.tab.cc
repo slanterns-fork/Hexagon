@@ -34,8 +34,8 @@
 // First part of user declarations.
 #line 1 "Hexagon.yy" // lalr1.cc:404
 
-#include "Hexagon.hh"
-class HexagonParser;
+    #include "HexagonInterpreter.hh"
+    #include "Hexagon.hh"
 
 #line 41 "Hexagon.tab.cc" // lalr1.cc:404
 
@@ -66,6 +66,25 @@ class HexagonParser;
 # endif
 #endif
 
+#define YYRHSLOC(Rhs, K) ((Rhs)[K].location)
+/* YYLLOC_DEFAULT -- Set CURRENT to span from RHS[1] to RHS[N].
+   If N is 0, then set CURRENT to the empty location which ends
+   the previous symbol: RHS[0] (always defined).  */
+
+# ifndef YYLLOC_DEFAULT
+#  define YYLLOC_DEFAULT(Current, Rhs, N)                               \
+    do                                                                  \
+      if (N)                                                            \
+        {                                                               \
+          (Current).begin  = YYRHSLOC (Rhs, 1).begin;                   \
+          (Current).end    = YYRHSLOC (Rhs, N).end;                     \
+        }                                                               \
+      else                                                              \
+        {                                                               \
+          (Current).begin = (Current).end = YYRHSLOC (Rhs, 0).end;      \
+        }                                                               \
+    while (/*CONSTCOND*/ false)
+# endif
 
 
 // Suppress unused-variable warnings by "using" E.
@@ -118,14 +137,16 @@ class HexagonParser;
 
 
 namespace yy {
-#line 122 "Hexagon.tab.cc" // lalr1.cc:479
+#line 141 "Hexagon.tab.cc" // lalr1.cc:479
 
   /// Build a parser object.
-  HexagonParser::HexagonParser ()
+  HexagonParser::HexagonParser (HexagonInterpreter& interpreter_yyarg)
+    :
 #if YYDEBUG
-     :yydebug_ (false),
-      yycdebug_ (&std::cerr)
+      yydebug_ (false),
+      yycdebug_ (&std::cerr),
 #endif
+      interpreter (interpreter_yyarg)
   {}
 
   HexagonParser::~HexagonParser ()
@@ -186,7 +207,7 @@ namespace yy {
 
   inline
   HexagonParser::stack_symbol_type::stack_symbol_type (state_type s, symbol_type& that)
-    : super_type (s)
+    : super_type (s, that.location)
   {
       switch (that.type_get ())
     {
@@ -209,6 +230,7 @@ namespace yy {
         break;
     }
 
+    location = that.location;
     return *this;
   }
 
@@ -236,7 +258,8 @@ namespace yy {
     if (yysym.empty ())
       std::abort ();
     yyo << (yytype < yyntokens_ ? "token" : "nterm")
-        << ' ' << yytname_[yytype] << " (";
+        << ' ' << yytname_[yytype] << " ("
+        << yysym.location << ": ";
     YYUSE (yytype);
     yyo << ')';
   }
@@ -330,6 +353,9 @@ namespace yy {
     /// The lookahead symbol.
     symbol_type yyla;
 
+    /// The locations where the error started and ended.
+    stack_symbol_type yyerror_range[3];
+
     /// The return value of parse ().
     int yyresult;
 
@@ -339,6 +365,15 @@ namespace yy {
       {
     YYCDEBUG << "Starting parse" << std::endl;
 
+
+    // User initialization code.
+    #line 23 "Hexagon.yy" // lalr1.cc:741
+{
+  // Initialize the initial location.
+  yyla.location.begin.filename = yyla.location.end.filename = &interpreter.file;
+}
+
+#line 377 "Hexagon.tab.cc" // lalr1.cc:741
 
     /* Initialize the stack.  The initial state will be set in
        yynewstate, since the latter expects the semantical and the
@@ -371,7 +406,7 @@ namespace yy {
         YYCDEBUG << "Reading a token: ";
         try
           {
-            symbol_type yylookahead (yylex ());
+            symbol_type yylookahead (yylex (interpreter));
             yyla.move (yylookahead);
           }
         catch (const syntax_error& yyexc)
@@ -433,6 +468,11 @@ namespace yy {
     }
 
 
+      // Compute the default @$.
+      {
+        slice<stack_symbol_type, stack_type> slice (yystack_, yylen);
+        YYLLOC_DEFAULT (yylhs.location, slice, yylen);
+      }
 
       // Perform the reduction.
       YY_REDUCE_PRINT (yyn);
@@ -441,7 +481,7 @@ namespace yy {
           switch (yyn)
             {
 
-#line 445 "Hexagon.tab.cc" // lalr1.cc:859
+#line 485 "Hexagon.tab.cc" // lalr1.cc:859
             default:
               break;
             }
@@ -469,10 +509,11 @@ namespace yy {
     if (!yyerrstatus_)
       {
         ++yynerrs_;
-        error (yysyntax_error_ (yystack_[0].state, yyla));
+        error (yyla.location, yysyntax_error_ (yystack_[0].state, yyla));
       }
 
 
+    yyerror_range[1].location = yyla.location;
     if (yyerrstatus_ == 3)
       {
         /* If just tried and failed to reuse lookahead token after an
@@ -502,6 +543,7 @@ namespace yy {
        code.  */
     if (false)
       goto yyerrorlab;
+    yyerror_range[1].location = yystack_[yylen - 1].location;
     /* Do not reclaim the symbols of the rule whose action triggered
        this YYERROR.  */
     yypop_ (yylen);
@@ -533,11 +575,14 @@ namespace yy {
           if (yystack_.size () == 1)
             YYABORT;
 
+          yyerror_range[1].location = yystack_[0].location;
           yy_destroy_ ("Error: popping", yystack_[0]);
           yypop_ ();
           YY_STACK_PRINT ();
         }
 
+      yyerror_range[2].location = yyla.location;
+      YYLLOC_DEFAULT (error_token.location, yyerror_range, 2);
 
       // Shift the error token.
       error_token.state = yyn;
@@ -591,7 +636,7 @@ namespace yy {
   void
   HexagonParser::error (const syntax_error& yyexc)
   {
-    error (yyexc.what());
+    error (yyexc.location, yyexc.what());
   }
 
   // Generate an error message.
@@ -761,12 +806,12 @@ namespace yy {
   const unsigned char
   HexagonParser::yyrline_[] =
   {
-       0,    19,    19,    20,    21,    22,    23,    24,    25,    26,
-      27,    28,    29,    30,    31,    32,    33,    34,    35,    36,
-      37,    41,    42,    46,    47,    48,    49,    53,    54,    55,
-      59,    60,    64,    68,    69,    73,    74,    78,    82,    86,
-      87,    91,    92,    96,   100,   104,   105,   109,   113,   114,
-     118,   122,   126,   130,   131,   135,   136
+       0,    36,    36,    37,    38,    39,    40,    41,    42,    43,
+      44,    45,    46,    47,    48,    49,    50,    51,    52,    53,
+      54,    58,    59,    63,    64,    65,    66,    70,    71,    72,
+      76,    77,    81,    85,    86,    90,    91,    95,    99,   103,
+     104,   108,   109,   113,   117,   121,   122,   126,   130,   131,
+     135,   139,   143,   147,   148,   152,   153
   };
 
   // Print the state stack on the debug stream.
@@ -801,6 +846,6 @@ namespace yy {
 
 
 } // yy
-#line 805 "Hexagon.tab.cc" // lalr1.cc:1167
-#line 139 "Hexagon.yy" // lalr1.cc:1168
+#line 850 "Hexagon.tab.cc" // lalr1.cc:1167
+#line 156 "Hexagon.yy" // lalr1.cc:1168
 

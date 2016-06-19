@@ -1,14 +1,31 @@
 %{
-#include "Hexagon.hh"
-class HexagonParser;
+    #include "HexagonInterpreter.hh"
+    #include "Hexagon.hh"
 %}
 
 %skeleton "lalr1.cc" /* -*- C++ -*- */
-%defines
-%define parser_class_name {HexagonParser}
+
 %define api.token.constructor
 %define api.value.type variant
 %define parse.assert
+
+%code requires{
+    #include <string>
+    class HexagonParser;
+    class HexagonInterpreter;
+}
+
+%defines
+%define parser_class_name {HexagonParser}
+
+%locations
+%initial-action
+{
+  // Initialize the initial location.
+  @$.begin.filename = @$.end.filename = &interpreter.file;
+};
+
+%param { HexagonInterpreter& interpreter }
 
 %token  SEMICOLON COMMA DOT ARROW GREATER LESS ASSIGN LB RB LS RS LC RC
         NULLEXP IMPORT CLASS MODULE NAMESPACE CONSTRUCT VAR CONST TRUEEXP FALSEEXP IDENTIFIER INTEGER REAL STRING
