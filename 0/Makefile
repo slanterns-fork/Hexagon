@@ -1,5 +1,7 @@
+CC = clang++ -std=c++11 -Wall -Wextra
+
 all: HexagonInterpreter.o
-	g++ -std=c++11 -o Hexagon.exe Hexagon.cc
+	$(CC) -o Hexagon.exe Hexagon.cc
 
 clean:
 	rm -f *.o lex.yy.c y.tab.c y.tab.h *~
@@ -14,4 +16,4 @@ lex.yy.cc: Hexagon.tab.hh Hexagon.tab.cc Hexagon.ll
 	flex Hexagon.ll
 
 HexagonInterpreter.o: lex.yy.cc
-	g++ -std=c++11 -c HexagonInterpreter.cc Hexagon.hh
+	$(CC) -c HexagonIntepreter.cc Hexagon.hh

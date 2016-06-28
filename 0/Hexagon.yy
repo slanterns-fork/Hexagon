@@ -12,7 +12,7 @@
 %code requires{
     #include <string>
     class HexagonParser;
-    class HexagonInterpreter;
+    class HexagonIntepreter;
 }
 
 %defines
@@ -22,10 +22,10 @@
 %initial-action
 {
   // Initialize the initial location.
-  @$.begin.filename = @$.end.filename = &interpreter.file;
+  @$.begin.filename = @$.end.filename = &interpeter.file;
 };
 
-%param { HexagonInterpreter& interpreter }
+%param { HexagonIntepreter& intepreter }
 
 %token  SEMICOLON COMMA DOT ARROW GREATER LESS ASSIGN LB RB LS RS LC RC
         NULLEXP IMPORT CLASS MODULE NAMESPACE CONSTRUCT VAR CONST TRUEEXP FALSEEXP IDENTIFIER INTEGER REAL STRING

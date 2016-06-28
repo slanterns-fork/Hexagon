@@ -44,7 +44,7 @@
 
     #include <string>
     class HexagonParser;
-    class HexagonInterpreter;
+    class HexagonIntepreter;
 
 #line 50 "Hexagon.tab.hh" // lalr1.cc:377
 
@@ -552,7 +552,7 @@ namespace yy {
 
 
     /// Build a parser object.
-    HexagonParser (HexagonInterpreter& interpreter_yyarg);
+    HexagonParser (HexagonIntepreter& intepreter_yyarg);
     virtual ~HexagonParser ();
 
     /// Parse.
@@ -762,7 +762,7 @@ namespace yy {
 
 
     // User arguments.
-    HexagonInterpreter& interpreter;
+    HexagonIntepreter& intepreter;
   };
 
   // Symbol number corresponding to token number t.

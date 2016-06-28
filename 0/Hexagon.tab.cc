@@ -140,13 +140,13 @@ namespace yy {
 #line 141 "Hexagon.tab.cc" // lalr1.cc:479
 
   /// Build a parser object.
-  HexagonParser::HexagonParser (HexagonInterpreter& interpreter_yyarg)
+  HexagonParser::HexagonParser (HexagonIntepreter& intepreter_yyarg)
     :
 #if YYDEBUG
       yydebug_ (false),
       yycdebug_ (&std::cerr),
 #endif
-      interpreter (interpreter_yyarg)
+      intepreter (intepreter_yyarg)
   {}
 
   HexagonParser::~HexagonParser ()
@@ -370,7 +370,7 @@ namespace yy {
     #line 23 "Hexagon.yy" // lalr1.cc:741
 {
   // Initialize the initial location.
-  yyla.location.begin.filename = yyla.location.end.filename = &interpreter.file;
+  yyla.location.begin.filename = yyla.location.end.filename = &interpeter.file;
 }
 
 #line 377 "Hexagon.tab.cc" // lalr1.cc:741
@@ -406,7 +406,7 @@ namespace yy {
         YYCDEBUG << "Reading a token: ";
         try
           {
-            symbol_type yylookahead (yylex (interpreter));
+            symbol_type yylookahead (yylex (intepreter));
             yyla.move (yylookahead);
           }
         catch (const syntax_error& yyexc)

@@ -8,9 +8,9 @@ int main(int argc, char *argv[]){
         std::cout << "<filename>: Hexagon source file name" << std::endl;
         return 1;
     }
-    auto main = new HexagonInterpreter();
+    auto main = new HexagonIntepreter();
 
-    std::string const &input = std::string(argv[1]);
+    std::string input = std::string(argv[1]);
     std::cout << main->parse(input) << std::endl;
     return 0;
 }
