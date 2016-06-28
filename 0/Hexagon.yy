@@ -1,6 +1,8 @@
 %{
-    #include "HexagonInterpreter.hh"
+    #include "HexagonIntepreter.hh"
     #include "Hexagon.hh"
+    extern int yyparse(void);
+    extern "C" int yylex(void);
 %}
 
 %skeleton "lalr1.cc" /* -*- C++ -*- */
@@ -16,16 +18,17 @@
 }
 
 %defines
-%define parser_class_name {HexagonParser}
+%define parser_class_name { HexagonParser }
 
 %locations
+
+/*%param { HexagonIntepreter& intepreter }
+
 %initial-action
 {
   // Initialize the initial location.
   @$.begin.filename = @$.end.filename = &interpeter.file;
-};
-
-%param { HexagonIntepreter& intepreter }
+};*/
 
 %token  SEMICOLON COMMA DOT ARROW GREATER LESS ASSIGN LB RB LS RS LC RC
         NULLEXP IMPORT CLASS MODULE NAMESPACE CONSTRUCT VAR CONST TRUEEXP FALSEEXP IDENTIFIER INTEGER REAL STRING

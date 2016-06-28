@@ -34,10 +34,12 @@
 // First part of user declarations.
 #line 1 "Hexagon.yy" // lalr1.cc:404
 
-    #include "HexagonInterpreter.hh"
+    #include "HexagonIntepreter.hh"
     #include "Hexagon.hh"
+    extern int yyparse(void);
+    extern "C" int yylex(void);
 
-#line 41 "Hexagon.tab.cc" // lalr1.cc:404
+#line 43 "Hexagon.tab.cc" // lalr1.cc:404
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -51,7 +53,7 @@
 
 // User implementation prologue.
 
-#line 55 "Hexagon.tab.cc" // lalr1.cc:412
+#line 57 "Hexagon.tab.cc" // lalr1.cc:412
 
 
 #ifndef YY_
@@ -137,19 +139,17 @@
 
 
 namespace yy {
-#line 141 "Hexagon.tab.cc" // lalr1.cc:479
+#line 143 "Hexagon.tab.cc" // lalr1.cc:479
 
   /// Build a parser object.
-  HexagonParser::HexagonParser (HexagonIntepreter& intepreter_yyarg)
-    :
+   HexagonParser :: HexagonParser  ()
 #if YYDEBUG
-      yydebug_ (false),
-      yycdebug_ (&std::cerr),
+     :yydebug_ (false),
+      yycdebug_ (&std::cerr)
 #endif
-      intepreter (intepreter_yyarg)
   {}
 
-  HexagonParser::~HexagonParser ()
+   HexagonParser ::~ HexagonParser  ()
   {}
 
 
@@ -161,38 +161,38 @@ namespace yy {
 
   // by_state.
   inline
-  HexagonParser::by_state::by_state ()
+   HexagonParser ::by_state::by_state ()
     : state (empty_state)
   {}
 
   inline
-  HexagonParser::by_state::by_state (const by_state& other)
+   HexagonParser ::by_state::by_state (const by_state& other)
     : state (other.state)
   {}
 
   inline
   void
-  HexagonParser::by_state::clear ()
+   HexagonParser ::by_state::clear ()
   {
     state = empty_state;
   }
 
   inline
   void
-  HexagonParser::by_state::move (by_state& that)
+   HexagonParser ::by_state::move (by_state& that)
   {
     state = that.state;
     that.clear ();
   }
 
   inline
-  HexagonParser::by_state::by_state (state_type s)
+   HexagonParser ::by_state::by_state (state_type s)
     : state (s)
   {}
 
   inline
-  HexagonParser::symbol_number_type
-  HexagonParser::by_state::type_get () const
+   HexagonParser ::symbol_number_type
+   HexagonParser ::by_state::type_get () const
   {
     if (state == empty_state)
       return empty_symbol;
@@ -201,12 +201,12 @@ namespace yy {
   }
 
   inline
-  HexagonParser::stack_symbol_type::stack_symbol_type ()
+   HexagonParser ::stack_symbol_type::stack_symbol_type ()
   {}
 
 
   inline
-  HexagonParser::stack_symbol_type::stack_symbol_type (state_type s, symbol_type& that)
+   HexagonParser ::stack_symbol_type::stack_symbol_type (state_type s, symbol_type& that)
     : super_type (s, that.location)
   {
       switch (that.type_get ())
@@ -220,8 +220,8 @@ namespace yy {
   }
 
   inline
-  HexagonParser::stack_symbol_type&
-  HexagonParser::stack_symbol_type::operator= (const stack_symbol_type& that)
+   HexagonParser ::stack_symbol_type&
+   HexagonParser ::stack_symbol_type::operator= (const stack_symbol_type& that)
   {
     state = that.state;
       switch (that.type_get ())
@@ -238,7 +238,7 @@ namespace yy {
   template <typename Base>
   inline
   void
-  HexagonParser::yy_destroy_ (const char* yymsg, basic_symbol<Base>& yysym) const
+   HexagonParser ::yy_destroy_ (const char* yymsg, basic_symbol<Base>& yysym) const
   {
     if (yymsg)
       YY_SYMBOL_PRINT (yymsg, yysym);
@@ -247,7 +247,7 @@ namespace yy {
 #if YYDEBUG
   template <typename Base>
   void
-  HexagonParser::yy_print_ (std::ostream& yyo,
+   HexagonParser ::yy_print_ (std::ostream& yyo,
                                      const basic_symbol<Base>& yysym) const
   {
     std::ostream& yyoutput = yyo;
@@ -267,7 +267,7 @@ namespace yy {
 
   inline
   void
-  HexagonParser::yypush_ (const char* m, state_type s, symbol_type& sym)
+   HexagonParser ::yypush_ (const char* m, state_type s, symbol_type& sym)
   {
     stack_symbol_type t (s, sym);
     yypush_ (m, t);
@@ -275,7 +275,7 @@ namespace yy {
 
   inline
   void
-  HexagonParser::yypush_ (const char* m, stack_symbol_type& s)
+   HexagonParser ::yypush_ (const char* m, stack_symbol_type& s)
   {
     if (m)
       YY_SYMBOL_PRINT (m, s);
@@ -284,40 +284,40 @@ namespace yy {
 
   inline
   void
-  HexagonParser::yypop_ (unsigned int n)
+   HexagonParser ::yypop_ (unsigned int n)
   {
     yystack_.pop (n);
   }
 
 #if YYDEBUG
   std::ostream&
-  HexagonParser::debug_stream () const
+   HexagonParser ::debug_stream () const
   {
     return *yycdebug_;
   }
 
   void
-  HexagonParser::set_debug_stream (std::ostream& o)
+   HexagonParser ::set_debug_stream (std::ostream& o)
   {
     yycdebug_ = &o;
   }
 
 
-  HexagonParser::debug_level_type
-  HexagonParser::debug_level () const
+   HexagonParser ::debug_level_type
+   HexagonParser ::debug_level () const
   {
     return yydebug_;
   }
 
   void
-  HexagonParser::set_debug_level (debug_level_type l)
+   HexagonParser ::set_debug_level (debug_level_type l)
   {
     yydebug_ = l;
   }
 #endif // YYDEBUG
 
-  inline HexagonParser::state_type
-  HexagonParser::yy_lr_goto_state_ (state_type yystate, int yysym)
+  inline  HexagonParser ::state_type
+   HexagonParser ::yy_lr_goto_state_ (state_type yystate, int yysym)
   {
     int yyr = yypgoto_[yysym - yyntokens_] + yystate;
     if (0 <= yyr && yyr <= yylast_ && yycheck_[yyr] == yystate)
@@ -327,19 +327,19 @@ namespace yy {
   }
 
   inline bool
-  HexagonParser::yy_pact_value_is_default_ (int yyvalue)
+   HexagonParser ::yy_pact_value_is_default_ (int yyvalue)
   {
     return yyvalue == yypact_ninf_;
   }
 
   inline bool
-  HexagonParser::yy_table_value_is_error_ (int yyvalue)
+   HexagonParser ::yy_table_value_is_error_ (int yyvalue)
   {
     return yyvalue == yytable_ninf_;
   }
 
   int
-  HexagonParser::parse ()
+   HexagonParser ::parse ()
   {
     // State.
     int yyn;
@@ -365,15 +365,6 @@ namespace yy {
       {
     YYCDEBUG << "Starting parse" << std::endl;
 
-
-    // User initialization code.
-    #line 23 "Hexagon.yy" // lalr1.cc:741
-{
-  // Initialize the initial location.
-  yyla.location.begin.filename = yyla.location.end.filename = &interpeter.file;
-}
-
-#line 377 "Hexagon.tab.cc" // lalr1.cc:741
 
     /* Initialize the stack.  The initial state will be set in
        yynewstate, since the latter expects the semantical and the
@@ -406,7 +397,7 @@ namespace yy {
         YYCDEBUG << "Reading a token: ";
         try
           {
-            symbol_type yylookahead (yylex (intepreter));
+            symbol_type yylookahead (yylex ());
             yyla.move (yylookahead);
           }
         catch (const syntax_error& yyexc)
@@ -481,7 +472,7 @@ namespace yy {
           switch (yyn)
             {
 
-#line 485 "Hexagon.tab.cc" // lalr1.cc:859
+#line 476 "Hexagon.tab.cc" // lalr1.cc:859
             default:
               break;
             }
@@ -634,25 +625,25 @@ namespace yy {
   }
 
   void
-  HexagonParser::error (const syntax_error& yyexc)
+   HexagonParser ::error (const syntax_error& yyexc)
   {
     error (yyexc.location, yyexc.what());
   }
 
   // Generate an error message.
   std::string
-  HexagonParser::yysyntax_error_ (state_type, const symbol_type&) const
+   HexagonParser ::yysyntax_error_ (state_type, const symbol_type&) const
   {
     return YY_("syntax error");
   }
 
 
-  const signed char HexagonParser::yypact_ninf_ = -75;
+  const signed char  HexagonParser ::yypact_ninf_ = -75;
 
-  const signed char HexagonParser::yytable_ninf_ = -30;
+  const signed char  HexagonParser ::yytable_ninf_ = -30;
 
   const short int
-  HexagonParser::yypact_[] =
+   HexagonParser ::yypact_[] =
   {
      148,   -21,   -21,   -75,   -21,     4,     4,   -21,   -75,   -21,
      -21,   -75,   -75,     4,   -75,   -75,   -75,    25,   -75,   -75,
@@ -668,7 +659,7 @@ namespace yy {
   };
 
   const unsigned char
-  HexagonParser::yydefact_[] =
+   HexagonParser ::yydefact_[] =
   {
        2,    33,     0,     8,     0,     0,     0,     0,    14,     0,
        0,     4,     5,    30,     3,     7,     6,     0,    20,    17,
@@ -684,7 +675,7 @@ namespace yy {
   };
 
   const signed char
-  HexagonParser::yypgoto_[] =
+   HexagonParser ::yypgoto_[] =
   {
      -75,     7,   -75,    12,   -74,    -1,     5,   -75,   -75,   -75,
      -75,    53,   -75,   -75,   -75,   -75,   -75,   -75,   -50,   -75,
@@ -692,7 +683,7 @@ namespace yy {
   };
 
   const signed char
-  HexagonParser::yydefgoto_[] =
+   HexagonParser ::yydefgoto_[] =
   {
       -1,    59,    90,    18,    19,    20,    21,    26,    27,    22,
       46,    62,    63,    68,    23,    29,    24,    30,    31,    77,
@@ -700,7 +691,7 @@ namespace yy {
   };
 
   const signed char
-  HexagonParser::yytable_[] =
+   HexagonParser ::yytable_[] =
   {
       25,    28,    73,    32,    50,    13,    35,    17,    36,    37,
       33,    34,     1,    52,    49,    51,   101,    48,    38,    44,
@@ -723,7 +714,7 @@ namespace yy {
   };
 
   const signed char
-  HexagonParser::yycheck_[] =
+   HexagonParser ::yycheck_[] =
   {
        1,     2,    52,     4,     4,    26,     7,     0,     9,    10,
        5,     6,     8,     4,     6,    15,    90,     4,    13,    20,
@@ -746,7 +737,7 @@ namespace yy {
   };
 
   const unsigned char
-  HexagonParser::yystos_[] =
+   HexagonParser ::yystos_[] =
   {
        0,     8,    14,    16,    17,    18,    19,    20,    21,    22,
       23,    24,    25,    26,    27,    28,    29,    31,    33,    34,
@@ -762,7 +753,7 @@ namespace yy {
   };
 
   const unsigned char
-  HexagonParser::yyr1_[] =
+   HexagonParser ::yyr1_[] =
   {
        0,    30,    31,    31,    31,    31,    31,    31,    31,    31,
       31,    31,    31,    31,    31,    31,    31,    31,    31,    31,
@@ -773,7 +764,7 @@ namespace yy {
   };
 
   const unsigned char
-  HexagonParser::yyr2_[] =
+   HexagonParser ::yyr2_[] =
   {
        0,     2,     0,     1,     1,     1,     1,     1,     1,     1,
        1,     4,     4,     2,     1,     1,     1,     1,     3,     3,
@@ -788,7 +779,7 @@ namespace yy {
   // YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
   // First, the terminals, then, starting at \a yyntokens_, nonterminals.
   const char*
-  const HexagonParser::yytname_[] =
+  const  HexagonParser ::yytname_[] =
   {
   "$end", "error", "$undefined", "SEMICOLON", "COMMA", "DOT", "ARROW",
   "GREATER", "LESS", "ASSIGN", "LB", "RB", "LS", "RS", "LC", "RC",
@@ -804,19 +795,19 @@ namespace yy {
 
 
   const unsigned char
-  HexagonParser::yyrline_[] =
+   HexagonParser ::yyrline_[] =
   {
-       0,    36,    36,    37,    38,    39,    40,    41,    42,    43,
-      44,    45,    46,    47,    48,    49,    50,    51,    52,    53,
-      54,    58,    59,    63,    64,    65,    66,    70,    71,    72,
-      76,    77,    81,    85,    86,    90,    91,    95,    99,   103,
-     104,   108,   109,   113,   117,   121,   122,   126,   130,   131,
-     135,   139,   143,   147,   148,   152,   153
+       0,    39,    39,    40,    41,    42,    43,    44,    45,    46,
+      47,    48,    49,    50,    51,    52,    53,    54,    55,    56,
+      57,    61,    62,    66,    67,    68,    69,    73,    74,    75,
+      79,    80,    84,    88,    89,    93,    94,    98,   102,   106,
+     107,   111,   112,   116,   120,   124,   125,   129,   133,   134,
+     138,   142,   146,   150,   151,   155,   156
   };
 
   // Print the state stack on the debug stream.
   void
-  HexagonParser::yystack_print_ ()
+   HexagonParser ::yystack_print_ ()
   {
     *yycdebug_ << "Stack now";
     for (stack_type::const_iterator
@@ -829,7 +820,7 @@ namespace yy {
 
   // Report on the debug stream that the rule \a yyrule is going to be reduced.
   void
-  HexagonParser::yy_reduce_print_ (int yyrule)
+   HexagonParser ::yy_reduce_print_ (int yyrule)
   {
     unsigned int yylno = yyrline_[yyrule];
     int yynrhs = yyr2_[yyrule];
@@ -846,6 +837,6 @@ namespace yy {
 
 
 } // yy
-#line 850 "Hexagon.tab.cc" // lalr1.cc:1167
-#line 156 "Hexagon.yy" // lalr1.cc:1168
+#line 841 "Hexagon.tab.cc" // lalr1.cc:1167
+#line 159 "Hexagon.yy" // lalr1.cc:1168
 

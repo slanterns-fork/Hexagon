@@ -4,7 +4,6 @@
 #include <iostream>
 #include <fstream>
 #include "Hexagon.tab.hh"
-#include "lex.yy.cc"
 #include "HexagonIntepreter.hh"
 
 
