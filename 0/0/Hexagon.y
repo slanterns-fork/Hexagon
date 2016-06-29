@@ -1,5 +1,7 @@
 %{
     #include "Hexagon.h"
+    int yyerror(const char*);
+    int yylex(void);
 %}
 
 %token SEMICOLON COMMA DOT ARROW GREATER LESS ASSIGN LB RB LS RS LC RC
@@ -127,3 +129,9 @@ MemberItems
     : VariableDeclare
     | MemberItems SEMICOLON VariableDeclare
     ;
+
+%%
+
+int yyerror (char const *s) {
+   fprintf (stderr, "%s\n", s);
+ }

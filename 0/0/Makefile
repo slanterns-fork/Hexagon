@@ -1,8 +1,8 @@
-CC = clang -Wall -Wextra
-OBJS = Hexagon.o Hexagon.tab.o HexagonIntepreter.o lex.yy.o
+CC = clang
+OBJS = Hexagon.o Hexagon.tab.o lex.yy.o
 
-all: $(OBJS)
-	$(CC) -ll -o Hexagon.exe $(OBJS)
+all: clean $(OBJS)
+	$(CC) -o Hexagon.exe $(OBJS)
 
 clean:
 	rm *.tab.* *.o

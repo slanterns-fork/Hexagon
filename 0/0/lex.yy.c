@@ -515,10 +515,11 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "Hexagon.l"
 #line 2 "Hexagon.l"
+    #include <stdio.h>
     #include "Hexagon.h"
     #include "Hexagon.tab.h"
 
-#line 522 "lex.yy.c"
+#line 523 "lex.yy.c"
 
 #define INITIAL 0
 #define STR 1
@@ -739,9 +740,9 @@ YY_DECL
 		}
 
 	{
-#line 10 "Hexagon.l"
+#line 11 "Hexagon.l"
 
-#line 745 "lex.yy.c"
+#line 746 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -800,176 +801,176 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 11 "Hexagon.l"
+#line 12 "Hexagon.l"
 return SEMICOLON;
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 12 "Hexagon.l"
+#line 13 "Hexagon.l"
 return COMMA;
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 13 "Hexagon.l"
+#line 14 "Hexagon.l"
 return DOT;
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 14 "Hexagon.l"
+#line 15 "Hexagon.l"
 return ARROW;
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 15 "Hexagon.l"
+#line 16 "Hexagon.l"
 return GREATER;
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 16 "Hexagon.l"
+#line 17 "Hexagon.l"
 return LESS;
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 17 "Hexagon.l"
+#line 18 "Hexagon.l"
 return ASSIGN;
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 18 "Hexagon.l"
+#line 19 "Hexagon.l"
 return LB;
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 19 "Hexagon.l"
+#line 20 "Hexagon.l"
 return RB;
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 20 "Hexagon.l"
+#line 21 "Hexagon.l"
 return LS;
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 21 "Hexagon.l"
+#line 22 "Hexagon.l"
 return RS;
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 22 "Hexagon.l"
+#line 23 "Hexagon.l"
 return LC;
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 23 "Hexagon.l"
+#line 24 "Hexagon.l"
 return RC;
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 24 "Hexagon.l"
+#line 25 "Hexagon.l"
 return NULLEXP;
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 25 "Hexagon.l"
+#line 26 "Hexagon.l"
 return IMPORT;
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 26 "Hexagon.l"
+#line 27 "Hexagon.l"
 return CLASS;
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 27 "Hexagon.l"
+#line 28 "Hexagon.l"
 return MODULE;
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 28 "Hexagon.l"
+#line 29 "Hexagon.l"
 return NAMESPACE;
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 29 "Hexagon.l"
+#line 30 "Hexagon.l"
 return CONSTRUCT;
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 30 "Hexagon.l"
+#line 31 "Hexagon.l"
 return VAR;
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 31 "Hexagon.l"
+#line 32 "Hexagon.l"
 return CONST;
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 32 "Hexagon.l"
+#line 33 "Hexagon.l"
 return TRUEEXP;
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 33 "Hexagon.l"
+#line 34 "Hexagon.l"
 return FALSEEXP;
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 34 "Hexagon.l"
+#line 35 "Hexagon.l"
 BEGIN STR;
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 35 "Hexagon.l"
+#line 36 "Hexagon.l"
 BEGIN LINECOMMENT;
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 36 "Hexagon.l"
+#line 37 "Hexagon.l"
 BEGIN BLOCKCOMMENT;
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 37 "Hexagon.l"
+#line 38 "Hexagon.l"
 ;
 	YY_BREAK
 case 28:
 /* rule 28 can match eol */
 YY_RULE_SETUP
-#line 38 "Hexagon.l"
+#line 39 "Hexagon.l"
 ;
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 39 "Hexagon.l"
-std::cout << "Bad Input:\"" << yytext[0] << "\"" << std::endl;
+#line 40 "Hexagon.l"
+printf("Bad Input:\" %s \"",yytext);
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 41 "Hexagon.l"
+#line 42 "Hexagon.l"
 return IDENTIFIER;
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 42 "Hexagon.l"
+#line 43 "Hexagon.l"
 return INTEGER;
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 43 "Hexagon.l"
+#line 44 "Hexagon.l"
 return REAL;
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 45 "Hexagon.l"
+#line 46 "Hexagon.l"
 
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 46 "Hexagon.l"
+#line 47 "Hexagon.l"
 ECHO;
 	YY_BREAK
-#line 973 "lex.yy.c"
+#line 974 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(STR):
 case YY_STATE_EOF(LINECOMMENT):
@@ -1973,4 +1974,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 46 "Hexagon.l"
+#line 47 "Hexagon.l"

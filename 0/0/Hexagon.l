@@ -1,4 +1,5 @@
 %{
+    #include <stdio.h>
     #include "Hexagon.h"
     #include "Hexagon.tab.h"
 %}
@@ -36,7 +37,7 @@
 <INITIAL>"/*"           BEGIN BLOCKCOMMENT;
 <INITIAL>[ \t]          ;
 <INITIAL>(\r\n)|(\n\r)|\r|\n    ;
-<INITIAL>.              std::cout << "Bad Input:\"" << yytext[0] << "\"" << std::endl;
+<INITIAL>.              printf("Bad Input:\" %s \"",yytext);
 
 <INITIAL>[A-Za-z_][A-Za-z0-9_]*                 return IDENTIFIER;
 <INITIAL>(\+|-)?[1-9][0-9]*|0                   return INTEGER;
