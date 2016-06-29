@@ -36,8 +36,8 @@
 
     #include "HexagonIntepreter.hh"
     #include "Hexagon.hh"
-    extern int yyparse(void);
-    extern "C" int yylex(void);
+    #include <FlexLexer.h>
+    #define yylex yyFlexLexer::yylex
 
 #line 43 "Hexagon.tab.cc" // lalr1.cc:404
 
@@ -141,12 +141,52 @@
 namespace yy {
 #line 143 "Hexagon.tab.cc" // lalr1.cc:479
 
+  /* Return YYSTR after stripping away unnecessary quotes and
+     backslashes, so that it's suitable for yyerror.  The heuristic is
+     that double-quoting is unnecessary unless the string contains an
+     apostrophe, a comma, or backslash (other than backslash-backslash).
+     YYSTR is taken from yytname.  */
+  std::string
+   HexagonParser ::yytnamerr_ (const char *yystr)
+  {
+    if (*yystr == '"')
+      {
+        std::string yyr = "";
+        char const *yyp = yystr;
+
+        for (;;)
+          switch (*++yyp)
+            {
+            case '\'':
+            case ',':
+              goto do_not_strip_quotes;
+
+            case '\\':
+              if (*++yyp != '\\')
+                goto do_not_strip_quotes;
+              // Fall through.
+            default:
+              yyr += *yyp;
+              break;
+
+            case '"':
+              return yyr;
+            }
+      do_not_strip_quotes: ;
+      }
+
+    return yystr;
+  }
+
+
   /// Build a parser object.
-   HexagonParser :: HexagonParser  ()
+   HexagonParser :: HexagonParser  (HexagonIntepreter& intepreter_yyarg)
+    :
 #if YYDEBUG
-     :yydebug_ (false),
-      yycdebug_ (&std::cerr)
+      yydebug_ (false),
+      yycdebug_ (&std::cerr),
 #endif
+      intepreter (intepreter_yyarg)
   {}
 
    HexagonParser ::~ HexagonParser  ()
@@ -366,6 +406,15 @@ namespace yy {
     YYCDEBUG << "Starting parse" << std::endl;
 
 
+    // User initialization code.
+    #line 28 "Hexagon.yy" // lalr1.cc:741
+{
+  // Initialize the initial location.
+  yyla.location.begin.filename = yyla.location.end.filename = &intepreter.file;
+}
+
+#line 417 "Hexagon.tab.cc" // lalr1.cc:741
+
     /* Initialize the stack.  The initial state will be set in
        yynewstate, since the latter expects the semantical and the
        location values to have been already stored, initialize these
@@ -397,7 +446,7 @@ namespace yy {
         YYCDEBUG << "Reading a token: ";
         try
           {
-            symbol_type yylookahead (yylex ());
+            symbol_type yylookahead (yylex (intepreter));
             yyla.move (yylookahead);
           }
         catch (const syntax_error& yyexc)
@@ -472,7 +521,7 @@ namespace yy {
           switch (yyn)
             {
 
-#line 476 "Hexagon.tab.cc" // lalr1.cc:859
+#line 525 "Hexagon.tab.cc" // lalr1.cc:859
             default:
               break;
             }
@@ -632,9 +681,98 @@ namespace yy {
 
   // Generate an error message.
   std::string
-   HexagonParser ::yysyntax_error_ (state_type, const symbol_type&) const
+   HexagonParser ::yysyntax_error_ (state_type yystate, const symbol_type& yyla) const
   {
-    return YY_("syntax error");
+    // Number of reported tokens (one for the "unexpected", one per
+    // "expected").
+    size_t yycount = 0;
+    // Its maximum.
+    enum { YYERROR_VERBOSE_ARGS_MAXIMUM = 5 };
+    // Arguments of yyformat.
+    char const *yyarg[YYERROR_VERBOSE_ARGS_MAXIMUM];
+
+    /* There are many possibilities here to consider:
+       - If this state is a consistent state with a default action, then
+         the only way this function was invoked is if the default action
+         is an error action.  In that case, don't check for expected
+         tokens because there are none.
+       - The only way there can be no lookahead present (in yyla) is
+         if this state is a consistent state with a default action.
+         Thus, detecting the absence of a lookahead is sufficient to
+         determine that there is no unexpected or expected token to
+         report.  In that case, just report a simple "syntax error".
+       - Don't assume there isn't a lookahead just because this state is
+         a consistent state with a default action.  There might have
+         been a previous inconsistent state, consistent state with a
+         non-default action, or user semantic action that manipulated
+         yyla.  (However, yyla is currently not documented for users.)
+       - Of course, the expected token list depends on states to have
+         correct lookahead information, and it depends on the parser not
+         to perform extra reductions after fetching a lookahead from the
+         scanner and before detecting a syntax error.  Thus, state
+         merging (from LALR or IELR) and default reductions corrupt the
+         expected token list.  However, the list is correct for
+         canonical LR with one exception: it will still contain any
+         token that will not be accepted due to an error action in a
+         later state.
+    */
+    if (!yyla.empty ())
+      {
+        int yytoken = yyla.type_get ();
+        yyarg[yycount++] = yytname_[yytoken];
+        int yyn = yypact_[yystate];
+        if (!yy_pact_value_is_default_ (yyn))
+          {
+            /* Start YYX at -YYN if negative to avoid negative indexes in
+               YYCHECK.  In other words, skip the first -YYN actions for
+               this state because they are default actions.  */
+            int yyxbegin = yyn < 0 ? -yyn : 0;
+            // Stay within bounds of both yycheck and yytname.
+            int yychecklim = yylast_ - yyn + 1;
+            int yyxend = yychecklim < yyntokens_ ? yychecklim : yyntokens_;
+            for (int yyx = yyxbegin; yyx < yyxend; ++yyx)
+              if (yycheck_[yyx + yyn] == yyx && yyx != yyterror_
+                  && !yy_table_value_is_error_ (yytable_[yyx + yyn]))
+                {
+                  if (yycount == YYERROR_VERBOSE_ARGS_MAXIMUM)
+                    {
+                      yycount = 1;
+                      break;
+                    }
+                  else
+                    yyarg[yycount++] = yytname_[yyx];
+                }
+          }
+      }
+
+    char const* yyformat = YY_NULLPTR;
+    switch (yycount)
+      {
+#define YYCASE_(N, S)                         \
+        case N:                               \
+          yyformat = S;                       \
+        break
+        YYCASE_(0, YY_("syntax error"));
+        YYCASE_(1, YY_("syntax error, unexpected %s"));
+        YYCASE_(2, YY_("syntax error, unexpected %s, expecting %s"));
+        YYCASE_(3, YY_("syntax error, unexpected %s, expecting %s or %s"));
+        YYCASE_(4, YY_("syntax error, unexpected %s, expecting %s or %s or %s"));
+        YYCASE_(5, YY_("syntax error, unexpected %s, expecting %s or %s or %s or %s"));
+#undef YYCASE_
+      }
+
+    std::string yyres;
+    // Argument number.
+    size_t yyi = 0;
+    for (char const* yyp = yyformat; *yyp; ++yyp)
+      if (yyp[0] == '%' && yyp[1] == 's' && yyi < yycount)
+        {
+          yyres += yytnamerr_ (yyarg[yyi++]);
+          ++yyp;
+        }
+      else
+        yyres += *yyp;
+    return yyres;
   }
 
 
@@ -775,7 +913,7 @@ namespace yy {
   };
 
 
-#if YYDEBUG
+
   // YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
   // First, the terminals, then, starting at \a yyntokens_, nonterminals.
   const char*
@@ -793,16 +931,16 @@ namespace yy {
   "MemberItems", YY_NULLPTR
   };
 
-
+#if YYDEBUG
   const unsigned char
    HexagonParser ::yyrline_[] =
   {
-       0,    39,    39,    40,    41,    42,    43,    44,    45,    46,
-      47,    48,    49,    50,    51,    52,    53,    54,    55,    56,
-      57,    61,    62,    66,    67,    68,    69,    73,    74,    75,
-      79,    80,    84,    88,    89,    93,    94,    98,   102,   106,
-     107,   111,   112,   116,   120,   124,   125,   129,   133,   134,
-     138,   142,   146,   150,   151,   155,   156
+       0,    44,    44,    45,    46,    47,    48,    49,    50,    51,
+      52,    53,    54,    55,    56,    57,    58,    59,    60,    61,
+      62,    66,    67,    71,    72,    73,    74,    78,    79,    80,
+      84,    85,    89,    93,    94,    98,    99,   103,   107,   111,
+     112,   116,   117,   121,   125,   129,   130,   134,   138,   139,
+     143,   147,   151,   155,   156,   160,   161
   };
 
   // Print the state stack on the debug stream.
@@ -837,6 +975,13 @@ namespace yy {
 
 
 } // yy
-#line 841 "Hexagon.tab.cc" // lalr1.cc:1167
-#line 159 "Hexagon.yy" // lalr1.cc:1168
+#line 979 "Hexagon.tab.cc" // lalr1.cc:1167
+#line 164 "Hexagon.yy" // lalr1.cc:1168
 
+
+void
+yy::HexagonParser::error (const location_type& l,
+                          const std::string& m)
+{
+  intepreter.error (l, m);
+}

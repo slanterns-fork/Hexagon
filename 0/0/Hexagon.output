@@ -1,0 +1,1378 @@
+State 19 conflicts: 7 reduce/reduce
+State 59 conflicts: 4 shift/reduce
+State 92 conflicts: 6 shift/reduce, 4 reduce/reduce
+State 93 conflicts: 6 shift/reduce, 4 reduce/reduce
+
+
+Grammar
+
+    0 $accept: Expression $end
+
+    1 Expression: %empty
+    2           | INTEGER
+    3           | TRUEEXP
+    4           | FALSEEXP
+    5           | STRING
+    6           | REAL
+    7           | NULLEXP
+    8           | Array
+    9           | Dictionary
+   10           | Expression LB ParameterList RB
+   11           | Expression LS Expression RS
+   12           | IMPORT Identifier
+   13           | CONSTRUCT
+   14           | Function
+   15           | Identifier
+   16           | VariableDeclare
+   17           | Expression SEMICOLON Expression
+   18           | Expression DOT Identifier
+   19           | Declaration
+
+   20 DeclareArea: %empty
+   21            | DeclareArea Declaration
+
+   22 Declaration: CLASS Packet Identifier ASSIGN ClassBody SEMICOLON
+   23            | MODULE Packet Identifier ASSIGN ClassBody SEMICOLON
+   24            | NAMESPACE Identifier ASSIGN NamespaceBody SEMICOLON
+   25            | VariableDeclare
+
+   26 VariableDeclare: Identifier Identifier SEMICOLON
+   27                | CONST Identifier ASSIGN Expression SEMICOLON
+   28                | VAR Identifier ASSIGN Expression SEMICOLON
+
+   29 Identifier: IDENTIFIER
+   30           | IDENTIFIER Packet
+
+   31 Packet: LESS PacketList GREATER
+
+   32 PacketList: %empty
+   33           | PacketItems
+
+   34 PacketItems: Identifier
+   35            | PacketItems COMMA Identifier
+
+   36 Function: Packet FunctionHead FunctionBody
+
+   37 FunctionHead: LB ParameterList RB
+
+   38 ParameterList: %empty
+   39              | ParameterItems
+
+   40 ParameterItems: Identifier Identifier
+   41               | ParameterItems COMMA Identifier Identifier
+
+   42 FunctionBody: LC Expression RC
+
+   43 Array: LC ArrayItems RC
+
+   44 ArrayItems: Identifier
+   45           | ArrayItems COMMA Identifier
+
+   46 Dictionary: LC DictionaryItems RC
+
+   47 DictionaryItems: DictionaryItem
+   48                | DictionaryItems COMMA DictionaryItem DictionaryItem
+
+   49 DictionaryItem: Identifier ARROW Identifier
+
+   50 NamespaceBody: LC DeclareArea RC
+
+   51 ClassBody: Packet LC MembersDeclareArea RC
+
+   52 MembersDeclareArea: %empty
+   53                   | MemberItems
+
+   54 MemberItems: VariableDeclare
+   55            | MemberItems SEMICOLON VariableDeclare
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+SEMICOLON (258) 17 22 23 24 26 27 28 55
+COMMA (259) 35 41 45 48
+DOT (260) 18
+ARROW (261) 49
+GREATER (262) 31
+LESS (263) 31
+ASSIGN (264) 22 23 24 27 28
+LB (265) 10 37
+RB (266) 10 37
+LS (267) 11
+RS (268) 11
+LC (269) 42 43 46 50 51
+RC (270) 42 43 46 50 51
+NULLEXP (271) 7
+IMPORT (272) 12
+CLASS (273) 22
+MODULE (274) 23
+NAMESPACE (275) 24
+CONSTRUCT (276) 13
+VAR (277) 28
+CONST (278) 27
+TRUEEXP (279) 3
+FALSEEXP (280) 4
+IDENTIFIER (281) 29 30
+INTEGER (282) 2
+REAL (283) 6
+STRING (284) 5
+
+
+Nonterminals, with rules where they appear
+
+$accept (30)
+    on left: 0
+Expression (31)
+    on left: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19, on right:
+    0 10 11 17 18 27 28 42
+DeclareArea (32)
+    on left: 20 21, on right: 21 50
+Declaration (33)
+    on left: 22 23 24 25, on right: 19 21
+VariableDeclare (34)
+    on left: 26 27 28, on right: 16 25 54 55
+Identifier (35)
+    on left: 29 30, on right: 12 15 18 22 23 24 26 27 28 34 35 40 41
+    44 45 49
+Packet (36)
+    on left: 31, on right: 22 23 30 36 51
+PacketList (37)
+    on left: 32 33, on right: 31
+PacketItems (38)
+    on left: 34 35, on right: 33 35
+Function (39)
+    on left: 36, on right: 14
+FunctionHead (40)
+    on left: 37, on right: 36
+ParameterList (41)
+    on left: 38 39, on right: 10 37
+ParameterItems (42)
+    on left: 40 41, on right: 39 41
+FunctionBody (43)
+    on left: 42, on right: 36
+Array (44)
+    on left: 43, on right: 8
+ArrayItems (45)
+    on left: 44 45, on right: 43 45
+Dictionary (46)
+    on left: 46, on right: 9
+DictionaryItems (47)
+    on left: 47 48, on right: 46 48
+DictionaryItem (48)
+    on left: 49, on right: 47 48
+NamespaceBody (49)
+    on left: 50, on right: 24
+ClassBody (50)
+    on left: 51, on right: 22 23
+MembersDeclareArea (51)
+    on left: 52 53, on right: 51
+MemberItems (52)
+    on left: 54 55, on right: 53 55
+
+
+State 0
+
+    0 $accept: . Expression $end
+
+    LESS        shift, and go to state 1
+    LC          shift, and go to state 2
+    NULLEXP     shift, and go to state 3
+    IMPORT      shift, and go to state 4
+    CLASS       shift, and go to state 5
+    MODULE      shift, and go to state 6
+    NAMESPACE   shift, and go to state 7
+    CONSTRUCT   shift, and go to state 8
+    VAR         shift, and go to state 9
+    CONST       shift, and go to state 10
+    TRUEEXP     shift, and go to state 11
+    FALSEEXP    shift, and go to state 12
+    IDENTIFIER  shift, and go to state 13
+    INTEGER     shift, and go to state 14
+    REAL        shift, and go to state 15
+    STRING      shift, and go to state 16
+
+    $default  reduce using rule 1 (Expression)
+
+    Expression       go to state 17
+    Declaration      go to state 18
+    VariableDeclare  go to state 19
+    Identifier       go to state 20
+    Packet           go to state 21
+    Function         go to state 22
+    Array            go to state 23
+    Dictionary       go to state 24
+
+
+State 1
+
+   31 Packet: LESS . PacketList GREATER
+
+    IDENTIFIER  shift, and go to state 13
+
+    $default  reduce using rule 32 (PacketList)
+
+    Identifier   go to state 25
+    PacketList   go to state 26
+    PacketItems  go to state 27
+
+
+State 2
+
+   43 Array: LC . ArrayItems RC
+   46 Dictionary: LC . DictionaryItems RC
+
+    IDENTIFIER  shift, and go to state 13
+
+    Identifier       go to state 28
+    ArrayItems       go to state 29
+    DictionaryItems  go to state 30
+    DictionaryItem   go to state 31
+
+
+State 3
+
+    7 Expression: NULLEXP .
+
+    $default  reduce using rule 7 (Expression)
+
+
+State 4
+
+   12 Expression: IMPORT . Identifier
+
+    IDENTIFIER  shift, and go to state 13
+
+    Identifier  go to state 32
+
+
+State 5
+
+   22 Declaration: CLASS . Packet Identifier ASSIGN ClassBody SEMICOLON
+
+    LESS  shift, and go to state 1
+
+    Packet  go to state 33
+
+
+State 6
+
+   23 Declaration: MODULE . Packet Identifier ASSIGN ClassBody SEMICOLON
+
+    LESS  shift, and go to state 1
+
+    Packet  go to state 34
+
+
+State 7
+
+   24 Declaration: NAMESPACE . Identifier ASSIGN NamespaceBody SEMICOLON
+
+    IDENTIFIER  shift, and go to state 13
+
+    Identifier  go to state 35
+
+
+State 8
+
+   13 Expression: CONSTRUCT .
+
+    $default  reduce using rule 13 (Expression)
+
+
+State 9
+
+   28 VariableDeclare: VAR . Identifier ASSIGN Expression SEMICOLON
+
+    IDENTIFIER  shift, and go to state 13
+
+    Identifier  go to state 36
+
+
+State 10
+
+   27 VariableDeclare: CONST . Identifier ASSIGN Expression SEMICOLON
+
+    IDENTIFIER  shift, and go to state 13
+
+    Identifier  go to state 37
+
+
+State 11
+
+    3 Expression: TRUEEXP .
+
+    $default  reduce using rule 3 (Expression)
+
+
+State 12
+
+    4 Expression: FALSEEXP .
+
+    $default  reduce using rule 4 (Expression)
+
+
+State 13
+
+   29 Identifier: IDENTIFIER .
+   30           | IDENTIFIER . Packet
+
+    LESS  shift, and go to state 1
+
+    $default  reduce using rule 29 (Identifier)
+
+    Packet  go to state 38
+
+
+State 14
+
+    2 Expression: INTEGER .
+
+    $default  reduce using rule 2 (Expression)
+
+
+State 15
+
+    6 Expression: REAL .
+
+    $default  reduce using rule 6 (Expression)
+
+
+State 16
+
+    5 Expression: STRING .
+
+    $default  reduce using rule 5 (Expression)
+
+
+State 17
+
+    0 $accept: Expression . $end
+   10 Expression: Expression . LB ParameterList RB
+   11           | Expression . LS Expression RS
+   17           | Expression . SEMICOLON Expression
+   18           | Expression . DOT Identifier
+
+    $end       shift, and go to state 39
+    SEMICOLON  shift, and go to state 40
+    DOT        shift, and go to state 41
+    LB         shift, and go to state 42
+    LS         shift, and go to state 43
+
+
+State 18
+
+   19 Expression: Declaration .
+
+    $default  reduce using rule 19 (Expression)
+
+
+State 19
+
+   16 Expression: VariableDeclare .
+   25 Declaration: VariableDeclare .
+
+    $end       reduce using rule 16 (Expression)
+    $end       [reduce using rule 25 (Declaration)]
+    SEMICOLON  reduce using rule 16 (Expression)
+    SEMICOLON  [reduce using rule 25 (Declaration)]
+    DOT        reduce using rule 16 (Expression)
+    DOT        [reduce using rule 25 (Declaration)]
+    LB         reduce using rule 16 (Expression)
+    LB         [reduce using rule 25 (Declaration)]
+    LS         reduce using rule 16 (Expression)
+    LS         [reduce using rule 25 (Declaration)]
+    RS         reduce using rule 16 (Expression)
+    RS         [reduce using rule 25 (Declaration)]
+    RC         reduce using rule 16 (Expression)
+    RC         [reduce using rule 25 (Declaration)]
+    $default   reduce using rule 16 (Expression)
+
+
+State 20
+
+   15 Expression: Identifier .
+   26 VariableDeclare: Identifier . Identifier SEMICOLON
+
+    IDENTIFIER  shift, and go to state 13
+
+    $default  reduce using rule 15 (Expression)
+
+    Identifier  go to state 44
+
+
+State 21
+
+   36 Function: Packet . FunctionHead FunctionBody
+
+    LB  shift, and go to state 45
+
+    FunctionHead  go to state 46
+
+
+State 22
+
+   14 Expression: Function .
+
+    $default  reduce using rule 14 (Expression)
+
+
+State 23
+
+    8 Expression: Array .
+
+    $default  reduce using rule 8 (Expression)
+
+
+State 24
+
+    9 Expression: Dictionary .
+
+    $default  reduce using rule 9 (Expression)
+
+
+State 25
+
+   34 PacketItems: Identifier .
+
+    $default  reduce using rule 34 (PacketItems)
+
+
+State 26
+
+   31 Packet: LESS PacketList . GREATER
+
+    GREATER  shift, and go to state 47
+
+
+State 27
+
+   33 PacketList: PacketItems .
+   35 PacketItems: PacketItems . COMMA Identifier
+
+    COMMA  shift, and go to state 48
+
+    $default  reduce using rule 33 (PacketList)
+
+
+State 28
+
+   44 ArrayItems: Identifier .
+   49 DictionaryItem: Identifier . ARROW Identifier
+
+    ARROW  shift, and go to state 49
+
+    $default  reduce using rule 44 (ArrayItems)
+
+
+State 29
+
+   43 Array: LC ArrayItems . RC
+   45 ArrayItems: ArrayItems . COMMA Identifier
+
+    COMMA  shift, and go to state 50
+    RC     shift, and go to state 51
+
+
+State 30
+
+   46 Dictionary: LC DictionaryItems . RC
+   48 DictionaryItems: DictionaryItems . COMMA DictionaryItem DictionaryItem
+
+    COMMA  shift, and go to state 52
+    RC     shift, and go to state 53
+
+
+State 31
+
+   47 DictionaryItems: DictionaryItem .
+
+    $default  reduce using rule 47 (DictionaryItems)
+
+
+State 32
+
+   12 Expression: IMPORT Identifier .
+
+    $default  reduce using rule 12 (Expression)
+
+
+State 33
+
+   22 Declaration: CLASS Packet . Identifier ASSIGN ClassBody SEMICOLON
+
+    IDENTIFIER  shift, and go to state 13
+
+    Identifier  go to state 54
+
+
+State 34
+
+   23 Declaration: MODULE Packet . Identifier ASSIGN ClassBody SEMICOLON
+
+    IDENTIFIER  shift, and go to state 13
+
+    Identifier  go to state 55
+
+
+State 35
+
+   24 Declaration: NAMESPACE Identifier . ASSIGN NamespaceBody SEMICOLON
+
+    ASSIGN  shift, and go to state 56
+
+
+State 36
+
+   28 VariableDeclare: VAR Identifier . ASSIGN Expression SEMICOLON
+
+    ASSIGN  shift, and go to state 57
+
+
+State 37
+
+   27 VariableDeclare: CONST Identifier . ASSIGN Expression SEMICOLON
+
+    ASSIGN  shift, and go to state 58
+
+
+State 38
+
+   30 Identifier: IDENTIFIER Packet .
+
+    $default  reduce using rule 30 (Identifier)
+
+
+State 39
+
+    0 $accept: Expression $end .
+
+    $default  accept
+
+
+State 40
+
+   17 Expression: Expression SEMICOLON . Expression
+
+    LESS        shift, and go to state 1
+    LC          shift, and go to state 2
+    NULLEXP     shift, and go to state 3
+    IMPORT      shift, and go to state 4
+    CLASS       shift, and go to state 5
+    MODULE      shift, and go to state 6
+    NAMESPACE   shift, and go to state 7
+    CONSTRUCT   shift, and go to state 8
+    VAR         shift, and go to state 9
+    CONST       shift, and go to state 10
+    TRUEEXP     shift, and go to state 11
+    FALSEEXP    shift, and go to state 12
+    IDENTIFIER  shift, and go to state 13
+    INTEGER     shift, and go to state 14
+    REAL        shift, and go to state 15
+    STRING      shift, and go to state 16
+
+    $default  reduce using rule 1 (Expression)
+
+    Expression       go to state 59
+    Declaration      go to state 18
+    VariableDeclare  go to state 19
+    Identifier       go to state 20
+    Packet           go to state 21
+    Function         go to state 22
+    Array            go to state 23
+    Dictionary       go to state 24
+
+
+State 41
+
+   18 Expression: Expression DOT . Identifier
+
+    IDENTIFIER  shift, and go to state 13
+
+    Identifier  go to state 60
+
+
+State 42
+
+   10 Expression: Expression LB . ParameterList RB
+
+    IDENTIFIER  shift, and go to state 13
+
+    $default  reduce using rule 38 (ParameterList)
+
+    Identifier      go to state 61
+    ParameterList   go to state 62
+    ParameterItems  go to state 63
+
+
+State 43
+
+   11 Expression: Expression LS . Expression RS
+
+    LESS        shift, and go to state 1
+    LC          shift, and go to state 2
+    NULLEXP     shift, and go to state 3
+    IMPORT      shift, and go to state 4
+    CLASS       shift, and go to state 5
+    MODULE      shift, and go to state 6
+    NAMESPACE   shift, and go to state 7
+    CONSTRUCT   shift, and go to state 8
+    VAR         shift, and go to state 9
+    CONST       shift, and go to state 10
+    TRUEEXP     shift, and go to state 11
+    FALSEEXP    shift, and go to state 12
+    IDENTIFIER  shift, and go to state 13
+    INTEGER     shift, and go to state 14
+    REAL        shift, and go to state 15
+    STRING      shift, and go to state 16
+
+    $default  reduce using rule 1 (Expression)
+
+    Expression       go to state 64
+    Declaration      go to state 18
+    VariableDeclare  go to state 19
+    Identifier       go to state 20
+    Packet           go to state 21
+    Function         go to state 22
+    Array            go to state 23
+    Dictionary       go to state 24
+
+
+State 44
+
+   26 VariableDeclare: Identifier Identifier . SEMICOLON
+
+    SEMICOLON  shift, and go to state 65
+
+
+State 45
+
+   37 FunctionHead: LB . ParameterList RB
+
+    IDENTIFIER  shift, and go to state 13
+
+    $default  reduce using rule 38 (ParameterList)
+
+    Identifier      go to state 61
+    ParameterList   go to state 66
+    ParameterItems  go to state 63
+
+
+State 46
+
+   36 Function: Packet FunctionHead . FunctionBody
+
+    LC  shift, and go to state 67
+
+    FunctionBody  go to state 68
+
+
+State 47
+
+   31 Packet: LESS PacketList GREATER .
+
+    $default  reduce using rule 31 (Packet)
+
+
+State 48
+
+   35 PacketItems: PacketItems COMMA . Identifier
+
+    IDENTIFIER  shift, and go to state 13
+
+    Identifier  go to state 69
+
+
+State 49
+
+   49 DictionaryItem: Identifier ARROW . Identifier
+
+    IDENTIFIER  shift, and go to state 13
+
+    Identifier  go to state 70
+
+
+State 50
+
+   45 ArrayItems: ArrayItems COMMA . Identifier
+
+    IDENTIFIER  shift, and go to state 13
+
+    Identifier  go to state 71
+
+
+State 51
+
+   43 Array: LC ArrayItems RC .
+
+    $default  reduce using rule 43 (Array)
+
+
+State 52
+
+   48 DictionaryItems: DictionaryItems COMMA . DictionaryItem DictionaryItem
+
+    IDENTIFIER  shift, and go to state 13
+
+    Identifier      go to state 72
+    DictionaryItem  go to state 73
+
+
+State 53
+
+   46 Dictionary: LC DictionaryItems RC .
+
+    $default  reduce using rule 46 (Dictionary)
+
+
+State 54
+
+   22 Declaration: CLASS Packet Identifier . ASSIGN ClassBody SEMICOLON
+
+    ASSIGN  shift, and go to state 74
+
+
+State 55
+
+   23 Declaration: MODULE Packet Identifier . ASSIGN ClassBody SEMICOLON
+
+    ASSIGN  shift, and go to state 75
+
+
+State 56
+
+   24 Declaration: NAMESPACE Identifier ASSIGN . NamespaceBody SEMICOLON
+
+    LC  shift, and go to state 76
+
+    NamespaceBody  go to state 77
+
+
+State 57
+
+   28 VariableDeclare: VAR Identifier ASSIGN . Expression SEMICOLON
+
+    LESS        shift, and go to state 1
+    LC          shift, and go to state 2
+    NULLEXP     shift, and go to state 3
+    IMPORT      shift, and go to state 4
+    CLASS       shift, and go to state 5
+    MODULE      shift, and go to state 6
+    NAMESPACE   shift, and go to state 7
+    CONSTRUCT   shift, and go to state 8
+    VAR         shift, and go to state 9
+    CONST       shift, and go to state 10
+    TRUEEXP     shift, and go to state 11
+    FALSEEXP    shift, and go to state 12
+    IDENTIFIER  shift, and go to state 13
+    INTEGER     shift, and go to state 14
+    REAL        shift, and go to state 15
+    STRING      shift, and go to state 16
+
+    $default  reduce using rule 1 (Expression)
+
+    Expression       go to state 78
+    Declaration      go to state 18
+    VariableDeclare  go to state 19
+    Identifier       go to state 20
+    Packet           go to state 21
+    Function         go to state 22
+    Array            go to state 23
+    Dictionary       go to state 24
+
+
+State 58
+
+   27 VariableDeclare: CONST Identifier ASSIGN . Expression SEMICOLON
+
+    LESS        shift, and go to state 1
+    LC          shift, and go to state 2
+    NULLEXP     shift, and go to state 3
+    IMPORT      shift, and go to state 4
+    CLASS       shift, and go to state 5
+    MODULE      shift, and go to state 6
+    NAMESPACE   shift, and go to state 7
+    CONSTRUCT   shift, and go to state 8
+    VAR         shift, and go to state 9
+    CONST       shift, and go to state 10
+    TRUEEXP     shift, and go to state 11
+    FALSEEXP    shift, and go to state 12
+    IDENTIFIER  shift, and go to state 13
+    INTEGER     shift, and go to state 14
+    REAL        shift, and go to state 15
+    STRING      shift, and go to state 16
+
+    $default  reduce using rule 1 (Expression)
+
+    Expression       go to state 79
+    Declaration      go to state 18
+    VariableDeclare  go to state 19
+    Identifier       go to state 20
+    Packet           go to state 21
+    Function         go to state 22
+    Array            go to state 23
+    Dictionary       go to state 24
+
+
+State 59
+
+   10 Expression: Expression . LB ParameterList RB
+   11           | Expression . LS Expression RS
+   17           | Expression . SEMICOLON Expression
+   17           | Expression SEMICOLON Expression .
+   18           | Expression . DOT Identifier
+
+    SEMICOLON  shift, and go to state 40
+    DOT        shift, and go to state 41
+    LB         shift, and go to state 42
+    LS         shift, and go to state 43
+
+    SEMICOLON  [reduce using rule 17 (Expression)]
+    DOT        [reduce using rule 17 (Expression)]
+    LB         [reduce using rule 17 (Expression)]
+    LS         [reduce using rule 17 (Expression)]
+    $default   reduce using rule 17 (Expression)
+
+
+State 60
+
+   18 Expression: Expression DOT Identifier .
+
+    $default  reduce using rule 18 (Expression)
+
+
+State 61
+
+   40 ParameterItems: Identifier . Identifier
+
+    IDENTIFIER  shift, and go to state 13
+
+    Identifier  go to state 80
+
+
+State 62
+
+   10 Expression: Expression LB ParameterList . RB
+
+    RB  shift, and go to state 81
+
+
+State 63
+
+   39 ParameterList: ParameterItems .
+   41 ParameterItems: ParameterItems . COMMA Identifier Identifier
+
+    COMMA  shift, and go to state 82
+
+    $default  reduce using rule 39 (ParameterList)
+
+
+State 64
+
+   10 Expression: Expression . LB ParameterList RB
+   11           | Expression . LS Expression RS
+   11           | Expression LS Expression . RS
+   17           | Expression . SEMICOLON Expression
+   18           | Expression . DOT Identifier
+
+    SEMICOLON  shift, and go to state 40
+    DOT        shift, and go to state 41
+    LB         shift, and go to state 42
+    LS         shift, and go to state 43
+    RS         shift, and go to state 83
+
+
+State 65
+
+   26 VariableDeclare: Identifier Identifier SEMICOLON .
+
+    $default  reduce using rule 26 (VariableDeclare)
+
+
+State 66
+
+   37 FunctionHead: LB ParameterList . RB
+
+    RB  shift, and go to state 84
+
+
+State 67
+
+   42 FunctionBody: LC . Expression RC
+
+    LESS        shift, and go to state 1
+    LC          shift, and go to state 2
+    NULLEXP     shift, and go to state 3
+    IMPORT      shift, and go to state 4
+    CLASS       shift, and go to state 5
+    MODULE      shift, and go to state 6
+    NAMESPACE   shift, and go to state 7
+    CONSTRUCT   shift, and go to state 8
+    VAR         shift, and go to state 9
+    CONST       shift, and go to state 10
+    TRUEEXP     shift, and go to state 11
+    FALSEEXP    shift, and go to state 12
+    IDENTIFIER  shift, and go to state 13
+    INTEGER     shift, and go to state 14
+    REAL        shift, and go to state 15
+    STRING      shift, and go to state 16
+
+    $default  reduce using rule 1 (Expression)
+
+    Expression       go to state 85
+    Declaration      go to state 18
+    VariableDeclare  go to state 19
+    Identifier       go to state 20
+    Packet           go to state 21
+    Function         go to state 22
+    Array            go to state 23
+    Dictionary       go to state 24
+
+
+State 68
+
+   36 Function: Packet FunctionHead FunctionBody .
+
+    $default  reduce using rule 36 (Function)
+
+
+State 69
+
+   35 PacketItems: PacketItems COMMA Identifier .
+
+    $default  reduce using rule 35 (PacketItems)
+
+
+State 70
+
+   49 DictionaryItem: Identifier ARROW Identifier .
+
+    $default  reduce using rule 49 (DictionaryItem)
+
+
+State 71
+
+   45 ArrayItems: ArrayItems COMMA Identifier .
+
+    $default  reduce using rule 45 (ArrayItems)
+
+
+State 72
+
+   49 DictionaryItem: Identifier . ARROW Identifier
+
+    ARROW  shift, and go to state 49
+
+
+State 73
+
+   48 DictionaryItems: DictionaryItems COMMA DictionaryItem . DictionaryItem
+
+    IDENTIFIER  shift, and go to state 13
+
+    Identifier      go to state 72
+    DictionaryItem  go to state 86
+
+
+State 74
+
+   22 Declaration: CLASS Packet Identifier ASSIGN . ClassBody SEMICOLON
+
+    LESS  shift, and go to state 1
+
+    Packet     go to state 87
+    ClassBody  go to state 88
+
+
+State 75
+
+   23 Declaration: MODULE Packet Identifier ASSIGN . ClassBody SEMICOLON
+
+    LESS  shift, and go to state 1
+
+    Packet     go to state 87
+    ClassBody  go to state 89
+
+
+State 76
+
+   50 NamespaceBody: LC . DeclareArea RC
+
+    $default  reduce using rule 20 (DeclareArea)
+
+    DeclareArea  go to state 90
+
+
+State 77
+
+   24 Declaration: NAMESPACE Identifier ASSIGN NamespaceBody . SEMICOLON
+
+    SEMICOLON  shift, and go to state 91
+
+
+State 78
+
+   10 Expression: Expression . LB ParameterList RB
+   11           | Expression . LS Expression RS
+   17           | Expression . SEMICOLON Expression
+   18           | Expression . DOT Identifier
+   28 VariableDeclare: VAR Identifier ASSIGN Expression . SEMICOLON
+
+    SEMICOLON  shift, and go to state 92
+    DOT        shift, and go to state 41
+    LB         shift, and go to state 42
+    LS         shift, and go to state 43
+
+
+State 79
+
+   10 Expression: Expression . LB ParameterList RB
+   11           | Expression . LS Expression RS
+   17           | Expression . SEMICOLON Expression
+   18           | Expression . DOT Identifier
+   27 VariableDeclare: CONST Identifier ASSIGN Expression . SEMICOLON
+
+    SEMICOLON  shift, and go to state 93
+    DOT        shift, and go to state 41
+    LB         shift, and go to state 42
+    LS         shift, and go to state 43
+
+
+State 80
+
+   40 ParameterItems: Identifier Identifier .
+
+    $default  reduce using rule 40 (ParameterItems)
+
+
+State 81
+
+   10 Expression: Expression LB ParameterList RB .
+
+    $default  reduce using rule 10 (Expression)
+
+
+State 82
+
+   41 ParameterItems: ParameterItems COMMA . Identifier Identifier
+
+    IDENTIFIER  shift, and go to state 13
+
+    Identifier  go to state 94
+
+
+State 83
+
+   11 Expression: Expression LS Expression RS .
+
+    $default  reduce using rule 11 (Expression)
+
+
+State 84
+
+   37 FunctionHead: LB ParameterList RB .
+
+    $default  reduce using rule 37 (FunctionHead)
+
+
+State 85
+
+   10 Expression: Expression . LB ParameterList RB
+   11           | Expression . LS Expression RS
+   17           | Expression . SEMICOLON Expression
+   18           | Expression . DOT Identifier
+   42 FunctionBody: LC Expression . RC
+
+    SEMICOLON  shift, and go to state 40
+    DOT        shift, and go to state 41
+    LB         shift, and go to state 42
+    LS         shift, and go to state 43
+    RC         shift, and go to state 95
+
+
+State 86
+
+   48 DictionaryItems: DictionaryItems COMMA DictionaryItem DictionaryItem .
+
+    $default  reduce using rule 48 (DictionaryItems)
+
+
+State 87
+
+   51 ClassBody: Packet . LC MembersDeclareArea RC
+
+    LC  shift, and go to state 96
+
+
+State 88
+
+   22 Declaration: CLASS Packet Identifier ASSIGN ClassBody . SEMICOLON
+
+    SEMICOLON  shift, and go to state 97
+
+
+State 89
+
+   23 Declaration: MODULE Packet Identifier ASSIGN ClassBody . SEMICOLON
+
+    SEMICOLON  shift, and go to state 98
+
+
+State 90
+
+   21 DeclareArea: DeclareArea . Declaration
+   50 NamespaceBody: LC DeclareArea . RC
+
+    RC          shift, and go to state 99
+    CLASS       shift, and go to state 5
+    MODULE      shift, and go to state 6
+    NAMESPACE   shift, and go to state 7
+    VAR         shift, and go to state 9
+    CONST       shift, and go to state 10
+    IDENTIFIER  shift, and go to state 13
+
+    Declaration      go to state 100
+    VariableDeclare  go to state 101
+    Identifier       go to state 102
+
+
+State 91
+
+   24 Declaration: NAMESPACE Identifier ASSIGN NamespaceBody SEMICOLON .
+
+    $default  reduce using rule 24 (Declaration)
+
+
+State 92
+
+   17 Expression: Expression SEMICOLON . Expression
+   28 VariableDeclare: VAR Identifier ASSIGN Expression SEMICOLON .
+
+    LESS        shift, and go to state 1
+    LC          shift, and go to state 2
+    NULLEXP     shift, and go to state 3
+    IMPORT      shift, and go to state 4
+    CLASS       shift, and go to state 5
+    MODULE      shift, and go to state 6
+    NAMESPACE   shift, and go to state 7
+    CONSTRUCT   shift, and go to state 8
+    VAR         shift, and go to state 9
+    CONST       shift, and go to state 10
+    TRUEEXP     shift, and go to state 11
+    FALSEEXP    shift, and go to state 12
+    IDENTIFIER  shift, and go to state 13
+    INTEGER     shift, and go to state 14
+    REAL        shift, and go to state 15
+    STRING      shift, and go to state 16
+
+    $end        reduce using rule 28 (VariableDeclare)
+    SEMICOLON   reduce using rule 1 (Expression)
+    SEMICOLON   [reduce using rule 28 (VariableDeclare)]
+    DOT         reduce using rule 1 (Expression)
+    DOT         [reduce using rule 28 (VariableDeclare)]
+    LB          reduce using rule 1 (Expression)
+    LB          [reduce using rule 28 (VariableDeclare)]
+    LS          reduce using rule 1 (Expression)
+    LS          [reduce using rule 28 (VariableDeclare)]
+    RS          reduce using rule 28 (VariableDeclare)
+    RC          reduce using rule 28 (VariableDeclare)
+    CLASS       [reduce using rule 28 (VariableDeclare)]
+    MODULE      [reduce using rule 28 (VariableDeclare)]
+    NAMESPACE   [reduce using rule 28 (VariableDeclare)]
+    VAR         [reduce using rule 28 (VariableDeclare)]
+    CONST       [reduce using rule 28 (VariableDeclare)]
+    IDENTIFIER  [reduce using rule 28 (VariableDeclare)]
+    $default    reduce using rule 1 (Expression)
+
+    Expression       go to state 59
+    Declaration      go to state 18
+    VariableDeclare  go to state 19
+    Identifier       go to state 20
+    Packet           go to state 21
+    Function         go to state 22
+    Array            go to state 23
+    Dictionary       go to state 24
+
+
+State 93
+
+   17 Expression: Expression SEMICOLON . Expression
+   27 VariableDeclare: CONST Identifier ASSIGN Expression SEMICOLON .
+
+    LESS        shift, and go to state 1
+    LC          shift, and go to state 2
+    NULLEXP     shift, and go to state 3
+    IMPORT      shift, and go to state 4
+    CLASS       shift, and go to state 5
+    MODULE      shift, and go to state 6
+    NAMESPACE   shift, and go to state 7
+    CONSTRUCT   shift, and go to state 8
+    VAR         shift, and go to state 9
+    CONST       shift, and go to state 10
+    TRUEEXP     shift, and go to state 11
+    FALSEEXP    shift, and go to state 12
+    IDENTIFIER  shift, and go to state 13
+    INTEGER     shift, and go to state 14
+    REAL        shift, and go to state 15
+    STRING      shift, and go to state 16
+
+    $end        reduce using rule 27 (VariableDeclare)
+    SEMICOLON   reduce using rule 1 (Expression)
+    SEMICOLON   [reduce using rule 27 (VariableDeclare)]
+    DOT         reduce using rule 1 (Expression)
+    DOT         [reduce using rule 27 (VariableDeclare)]
+    LB          reduce using rule 1 (Expression)
+    LB          [reduce using rule 27 (VariableDeclare)]
+    LS          reduce using rule 1 (Expression)
+    LS          [reduce using rule 27 (VariableDeclare)]
+    RS          reduce using rule 27 (VariableDeclare)
+    RC          reduce using rule 27 (VariableDeclare)
+    CLASS       [reduce using rule 27 (VariableDeclare)]
+    MODULE      [reduce using rule 27 (VariableDeclare)]
+    NAMESPACE   [reduce using rule 27 (VariableDeclare)]
+    VAR         [reduce using rule 27 (VariableDeclare)]
+    CONST       [reduce using rule 27 (VariableDeclare)]
+    IDENTIFIER  [reduce using rule 27 (VariableDeclare)]
+    $default    reduce using rule 1 (Expression)
+
+    Expression       go to state 59
+    Declaration      go to state 18
+    VariableDeclare  go to state 19
+    Identifier       go to state 20
+    Packet           go to state 21
+    Function         go to state 22
+    Array            go to state 23
+    Dictionary       go to state 24
+
+
+State 94
+
+   41 ParameterItems: ParameterItems COMMA Identifier . Identifier
+
+    IDENTIFIER  shift, and go to state 13
+
+    Identifier  go to state 103
+
+
+State 95
+
+   42 FunctionBody: LC Expression RC .
+
+    $default  reduce using rule 42 (FunctionBody)
+
+
+State 96
+
+   51 ClassBody: Packet LC . MembersDeclareArea RC
+
+    VAR         shift, and go to state 9
+    CONST       shift, and go to state 10
+    IDENTIFIER  shift, and go to state 13
+
+    $default  reduce using rule 52 (MembersDeclareArea)
+
+    VariableDeclare     go to state 104
+    Identifier          go to state 102
+    MembersDeclareArea  go to state 105
+    MemberItems         go to state 106
+
+
+State 97
+
+   22 Declaration: CLASS Packet Identifier ASSIGN ClassBody SEMICOLON .
+
+    $default  reduce using rule 22 (Declaration)
+
+
+State 98
+
+   23 Declaration: MODULE Packet Identifier ASSIGN ClassBody SEMICOLON .
+
+    $default  reduce using rule 23 (Declaration)
+
+
+State 99
+
+   50 NamespaceBody: LC DeclareArea RC .
+
+    $default  reduce using rule 50 (NamespaceBody)
+
+
+State 100
+
+   21 DeclareArea: DeclareArea Declaration .
+
+    $default  reduce using rule 21 (DeclareArea)
+
+
+State 101
+
+   25 Declaration: VariableDeclare .
+
+    $default  reduce using rule 25 (Declaration)
+
+
+State 102
+
+   26 VariableDeclare: Identifier . Identifier SEMICOLON
+
+    IDENTIFIER  shift, and go to state 13
+
+    Identifier  go to state 44
+
+
+State 103
+
+   41 ParameterItems: ParameterItems COMMA Identifier Identifier .
+
+    $default  reduce using rule 41 (ParameterItems)
+
+
+State 104
+
+   54 MemberItems: VariableDeclare .
+
+    $default  reduce using rule 54 (MemberItems)
+
+
+State 105
+
+   51 ClassBody: Packet LC MembersDeclareArea . RC
+
+    RC  shift, and go to state 107
+
+
+State 106
+
+   53 MembersDeclareArea: MemberItems .
+   55 MemberItems: MemberItems . SEMICOLON VariableDeclare
+
+    SEMICOLON  shift, and go to state 108
+
+    $default  reduce using rule 53 (MembersDeclareArea)
+
+
+State 107
+
+   51 ClassBody: Packet LC MembersDeclareArea RC .
+
+    $default  reduce using rule 51 (ClassBody)
+
+
+State 108
+
+   55 MemberItems: MemberItems SEMICOLON . VariableDeclare
+
+    VAR         shift, and go to state 9
+    CONST       shift, and go to state 10
+    IDENTIFIER  shift, and go to state 13
+
+    VariableDeclare  go to state 109
+    Identifier       go to state 102
+
+
+State 109
+
+   55 MemberItems: MemberItems SEMICOLON VariableDeclare .
+
+    $default  reduce using rule 55 (MemberItems)

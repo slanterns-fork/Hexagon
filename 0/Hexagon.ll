@@ -6,7 +6,8 @@
     int line = 1;
 %}
 
-%option c++ noyywrap
+%option c++
+%option noyywrap
 
 %start STR LINECOMMENT BLOCKCOMMENT
 

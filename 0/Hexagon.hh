@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <FlexLexer.h>
 #include "Hexagon.tab.hh"
 #include "HexagonIntepreter.hh"
 

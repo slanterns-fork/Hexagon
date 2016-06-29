@@ -1,42 +1,9 @@
 %{
-    #include "HexagonIntepreter.hh"
-    #include "Hexagon.hh"
-    #include <FlexLexer.h>
-    #define yylex yyFlexLexer::yylex
+    #include "Hexagon.h"
 %}
 
-%skeleton "lalr1.cc" /* -*- C++ -*- */
-
-%defines
-%define api.token.constructor
-%define api.value.type variant
-%define parse.assert
-
-%code requires{
-    #include <string>
-    class HexagonIntepreter;
-}
-
-%defines
-%define parser_class_name { HexagonParser }
-
-%locations
-
-%param { HexagonIntepreter& intepreter }
-
-%initial-action
-{
-  // Initialize the initial location.
-  @$.begin.filename = @$.end.filename = &intepreter.file;
-};
-
-%define parse.trace
-%define parse.error verbose
-
-%token  SEMICOLON COMMA DOT ARROW GREATER LESS ASSIGN LB RB LS RS LC RC
+%token SEMICOLON COMMA DOT ARROW GREATER LESS ASSIGN LB RB LS RS LC RC
         NULLEXP IMPORT CLASS MODULE NAMESPACE CONSTRUCT VAR CONST TRUEEXP FALSEEXP IDENTIFIER INTEGER REAL STRING
-
-%left COMMA DOT ARROW ASSIGN
 
 %%
 
@@ -160,12 +127,3 @@ MemberItems
     : VariableDeclare
     | MemberItems SEMICOLON VariableDeclare
     ;
-
-%%
-
-void
-yy::HexagonParser::error (const location_type& l,
-                          const std::string& m)
-{
-  intepreter.error (l, m);
-}
