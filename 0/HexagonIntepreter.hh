@@ -11,9 +11,11 @@ public:
     HexagonIntepreter();
     int lineno();
     int parse(std::string const&);
+    std::string file;
+    void error
+    (const yy::HexagonParser::location_type&,const std::string&);
 private:
     int _lineno;
-    std::string file;
 };
 
 #endif /* end of include guard: HEXAGON_INTEPRETER_HH_INCLUDED */

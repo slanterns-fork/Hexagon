@@ -40,13 +40,12 @@
 #ifndef YY_YY_HEXAGON_TAB_HH_INCLUDED
 # define YY_YY_HEXAGON_TAB_HH_INCLUDED
 // //                    "%code requires" blocks.
-#line 14 "Hexagon.yy" // lalr1.cc:377
+#line 15 "Hexagon.yy" // lalr1.cc:377
 
     #include <string>
-    class HexagonParser;
     class HexagonIntepreter;
 
-#line 50 "Hexagon.tab.hh" // lalr1.cc:377
+#line 49 "Hexagon.tab.hh" // lalr1.cc:377
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -118,12 +117,12 @@
 
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 0
+# define YYDEBUG 1
 #endif
 
 
 namespace yy {
-#line 127 "Hexagon.tab.hh" // lalr1.cc:377
+#line 126 "Hexagon.tab.hh" // lalr1.cc:377
 
 
 
@@ -552,7 +551,7 @@ namespace yy {
 
 
     /// Build a parser object.
-     HexagonParser  ();
+     HexagonParser  (HexagonIntepreter& intepreter_yyarg);
     virtual ~ HexagonParser  ();
 
     /// Parse.
@@ -648,10 +647,13 @@ namespace yy {
   static const unsigned char yyr2_[];
 
 
-#if YYDEBUG
+    /// Convert the symbol name \a n to a form suitable for a diagnostic.
+    static std::string yytnamerr_ (const char *n);
+
+
     /// For a symbol, its name in clear.
     static const char* const yytname_[];
-
+#if YYDEBUG
   // YYRLINE[YYN] -- Source line where rule number YYN was defined.
   static const unsigned char yyrline_[];
     /// Report on the debug stream that the rule \a r is going to be reduced.
@@ -761,6 +763,8 @@ namespace yy {
     };
 
 
+    // User arguments.
+    HexagonIntepreter& intepreter;
   };
 
   // Symbol number corresponding to token number t.
@@ -1143,7 +1147,7 @@ namespace yy {
 
 
 } // yy
-#line 1147 "Hexagon.tab.hh" // lalr1.cc:377
+#line 1151 "Hexagon.tab.hh" // lalr1.cc:377
 
 
 
